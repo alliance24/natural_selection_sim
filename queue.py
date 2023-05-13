@@ -1,8 +1,9 @@
 import os
 os.chdir("natural_selection_sim-main/")
 liste = []
+liste_food = []
 
-def append(creature):
+def add(liste, creature):
     liste.append(creature)
     
 def len(liste):

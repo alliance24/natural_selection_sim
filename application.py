@@ -1,12 +1,17 @@
 import pygame
 import constantes
 from Simulation import *
+import queue
+from queue import liste
+from queue import liste_food
 
+
+nb_individu = 50
 
 class App:
     def __init__(self) -> None:
         #On va faire 60 frames à chaque seconde (60 FPS), donc la boucle principale est répétée 60 fois à chaque seconde
-        self.FPS = 165
+        self.FPS = 60
         self.lecture = True
         self.pause = False
 
@@ -15,7 +20,8 @@ class App:
         pygame.display.set_caption("Simulation de la vie")
         self.screen = pygame.display.set_mode((constantes.largeur, constantes.hauteur))
         
-        self.simulation = Simulation(100)
+        self.food = 100 # facteur de nourriture
+        self.simulation = Simulation(nb_individu)
         self.chrono = pygame.time.Clock()
         
     
@@ -23,6 +29,13 @@ class App:
         #Boucle principale du programme
         while self.lecture:
             #On fait 10 secondes par tours, 60 * 10 soit 600 boucles par tour, avant de passer à un nouveau tour 
+            
+            for e in range(int((self.food*nb_individu)/100)):
+                e = Food()
+                queue.add(liste_food, e)
+                
+
+            
             for _ in range(self.FPS * 10):
                 while self.pause:
                     #Si le jeu est en pause il faut quand même vérifier si l'utilisateur rappuie sur pause ou sur quitter
