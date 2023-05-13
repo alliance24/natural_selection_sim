@@ -4,7 +4,7 @@ from Creature import *
 import queue
 from queue import liste
 from queue import liste_food
-from class_food import Food
+from class_food import *
 
 class Simulation:
     def __init__(self, nb_creature):
@@ -25,12 +25,12 @@ class Simulation:
         
 
     def Afficher(self, fenetre) -> None:
-        #Une fois que tous les calculs ont été faits dans la fonction Mise_A_Jour, on affiche tous les éléments du jeu
+        #Une fois que tous les calculs ont été faits dans la fonction Mise_A_Jour, on affiche tous les éléments
         
-        #On commence par effacer l'écran de la frame précédante en coloriant l'écran de blanc
+        #On commence par effacer l'écran de la frame précédante en coloriant l'écran
         
                     
-        fenetre.fill("black")
+        fenetre.fill("white")
 
         
         
@@ -38,31 +38,33 @@ class Simulation:
         self.surface_settings = pygame.Surface((constantes.LARGEUR_SETTINGS, constantes.HAUTEUR_SETTINGS))
         self.surface_stats = pygame.Surface((constantes.LARGEUR_STATS, constantes.HAUTEUR_STATS))
         
-        self.surface_general.fill("white")  # couleur rouge
-        self.surface_stats.fill((0, 255, 0))  # couleur verte
-        self.surface_settings.fill((0, 0, 255))  # couleur bleu
         
-        fenetre.blit(self.surface_general, (constantes.X_GENERAL, constantes.Y_GENERAL)) # coordonnées (x, y)
+        
+        self.surface_general.fill("black")  # couleur rouge
+        self.surface_stats.fill("green")  # couleur verte
+        self.surface_settings.fill("blue")  # couleur bleu
+        
         fenetre.blit(self.surface_settings, (constantes.X_SETTINGS, constantes.Y_SETTINGS))
         fenetre.blit(self.surface_stats, (constantes.X_STATS, constantes.Y_STATS))
         
-        for e in liste_food:
-                if e.eat == False:
-                    e.Afficher(fenetre)
-
-        
-        
-        #On itère à travers la file d'individus pour afficher chacun d'entre eux
-        #Note : chaque individu sait lui-même se dessiner, on a donc juste a appeler leur propre fonction Afficher
         for individu in liste:
             if individu.alive == True:
-                individu.Afficher(fenetre)
-            
+                individu.Afficher(self.surface_general)
+                # individu.Clear()
+                
+        for food in liste_food:
+                if food.eat == False:
+                    food.Afficher(self.surface_general)
+                    # food.Clear()
+        
+        fenetre.blit(self.surface_general, (constantes.X_GENERAL, constantes.Y_GENERAL)) # coordonnées (x, y)
         
         
         
-   
-
+        
+        
+        
+ 
 
         #Suite de la fonction pour afficher les textes, tout ça est séparé dans une fonction annexe pour pas polluer 
         # self.__Affichage_Ecriture(fenetre)

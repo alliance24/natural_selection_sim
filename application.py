@@ -7,6 +7,7 @@ from queue import liste_food
 
 
 nb_individu = 50
+facteur_food = 50 # facteur de nourriture
 
 class App:
     def __init__(self) -> None:
@@ -20,7 +21,7 @@ class App:
         pygame.display.set_caption("Simulation de la vie")
         self.screen = pygame.display.set_mode((constantes.largeur, constantes.hauteur))
         
-        self.food = 100 # facteur de nourriture
+        self.food = facteur_food
         self.simulation = Simulation(nb_individu)
         self.chrono = pygame.time.Clock()
         

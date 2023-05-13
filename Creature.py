@@ -12,9 +12,9 @@ class Creature(pygame.sprite.Sprite):
         super().__init__()
         
         self.speed = 1
-        self.deplacement = 25 # Constante qui équivaut au nombre de pixels moyen parcouru à chaque déplacement
+        self.deplacement = 5 # Constante qui équivaut au nombre de pixels moyen parcouru à chaque déplacement
         self.size = 1
-        self.food = 1
+        self.food = 0
         self.view = 1
         
         self.image = pygame.transform.scale(pygame.image.load("assets/rubiks.png"), (18, 18))
@@ -27,6 +27,11 @@ class Creature(pygame.sprite.Sprite):
         self.y = random.randint(18, self.max_y)
         
         
+    def detect(self):
+        return
+        
+    def eat(self):
+        return
         
     def move(self):
         direction = random.choice(["gauche", "droite", "haut", "bas"])
@@ -48,13 +53,20 @@ class Creature(pygame.sprite.Sprite):
             self.y = 18
         elif self.y > self.max_y:
             self.y = self.max_y - 18
+            
+        self.last_x = self.x
+        self.last_y = self.y
+    
+    
+    def Clear(self):
+        surface = pygame.Surface(self.image.get_size())
+        surface.fill("white")
         
         
     
     def Afficher(self, fenetre):
         fenetre.blit(self.image, (self.x, self.y))
-        # Mettre à jour l'affichage
-        pygame.display.update()
+
 
         
         
