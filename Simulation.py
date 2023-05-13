@@ -16,11 +16,21 @@ class Simulation:
         
     def Mise_A_Jour(self) -> None:
         #Ce qui est différent d'une frame à l'autre; toutes les actualisations se font ici
-
-        #On itère dans la file d'individus pour appeler leur propre fonction Mise_A_Jour
-        #Pour itérer à travers une file, on Defile chaque élément (chaque individu) un à un, on lance sa fonction Mise_A_Jour puis on le fait revenir à la fin de la file
+        
         for individu in liste:
-            individu.move()
+            if individu.alive == True:
+                individu.move()
+                for food in liste_food:
+                    if food.eat == False:
+                        if individu.eat(food.get_rect()):
+                            food.eat = True
+        
+            
+        # for food in liste_food:
+        #     if individu.eat(food.get_rect()):
+        #         food.eat = True
+                
+        
         
         
 
@@ -50,19 +60,26 @@ class Simulation:
         for individu in liste:
             if individu.alive == True:
                 individu.Afficher(self.surface_general)
-                # individu.Clear()
                 
         for food in liste_food:
-                if food.eat == False:
-                    food.Afficher(self.surface_general)
-                    # food.Clear()
+            if food.eat == False:
+                food.Afficher(self.surface_general)
+                    
+                    
+                    
+        # for food in liste_food:
+        #         if food.eat == False:
+        #             food.Afficher(self.surface_general)
+        #             # food.Clear()
+        
+        # for individu in liste:
+        #     if individu.alive == True:
+        #         individu.Afficher(self.surface_general)
+        #         # individu.Clear()
+                
+        
         
         fenetre.blit(self.surface_general, (constantes.X_GENERAL, constantes.Y_GENERAL)) # coordonnées (x, y)
-        
-        
-        
-        
-        
         
  
 
