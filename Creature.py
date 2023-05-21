@@ -1,7 +1,4 @@
-
-import pygame
-import constantes
-import random
+import pygame, constantes, random
 
 # Création des entités
 
@@ -10,8 +7,10 @@ class Creature(pygame.sprite.Sprite):
     def __init__(self):
         # Appelle le init de la classe hérité
         super().__init__()
-        
-        self.speed = random.uniform(0.5, 1.5)
+    
+        self.alive = True # Définit le statut de l'individu (mort ou vif)
+    
+        self.speed = random.uniform(1, 2.25)
         self.deplacement = random.randint(1, 15) # Variable qui donne le nombre de pixels parcouru à chaque déplacement
         self.size = random.uniform(0.75, 1.25) # Facteur varaiation de taille, multiplié à une base de 18 pixels de hauteur/largeur
         self.new_size = int(18*self.size) # Nouvelle taille
@@ -20,7 +19,8 @@ class Creature(pygame.sprite.Sprite):
         
         self.image = pygame.transform.scale(pygame.image.load("assets/rubiks.png"), (self.new_size, self.new_size))
         self.rect = self.image.get_rect()
-        self.alive = True # Définit le statut de l'individu (mort ou vif)
+        
+        
         
         self.max_x = int(constantes.LARGEUR_GENERAL - self.new_size) # Détermine la position x maximale pour rester dans la surface
         self.max_y = int(constantes.HAUTEUR_GENERAL - self.new_size) # Détermine la position y maximale pour rester dans la surface
@@ -28,17 +28,17 @@ class Creature(pygame.sprite.Sprite):
         self.y = random.randint(self.new_size, self.max_y) # Donne une positione en y qui se place dans la surface
         self.last_x = self.x # Permet de conserver le dernier déplacement en x
         self.last_y = self.y # Permet de conserver le dernier déplacement en y
-        
-    # def get_rect(self):
-    #     return self.rect
+    
     
     def detect(self):
         return
         
-    def eat(self, dimension):
-        if self.rect.colliderect(dimension):
+    def eat(self, x_food, y_food): # self --> creature | dimension (x,y) --> nourriture 
+        if (x_food <= self.x + self.new_size and x_food >= self.x) and (y_food <= self.y + self.new_size and y_food >= self.y):
             self.food += 1
             return True
+        else:
+            return False
 
         
     def move(self):

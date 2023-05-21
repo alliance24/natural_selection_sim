@@ -1,6 +1,6 @@
 import queue
-from queue import liste
-from queue import liste_food
+# from queue import liste_individus
+# from queue import liste_food
 
 
 class Statistiques():
@@ -15,7 +15,7 @@ class Statistiques():
         
         
     def moyenne_size(self):
-        for individu in liste:
+        for individu in queue.liste_individus:
             count = 0
             sum = 0
             if individu.alive == True:

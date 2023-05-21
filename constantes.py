@@ -23,3 +23,6 @@ LARGEUR_STATS = largeur-hauteur*1.01
 HAUTEUR_STATS = 0.48*hauteur
 X_STATS = hauteur
 Y_STATS = 0.51*hauteur
+
+# Tailles
+TAILLE_FOOD = 12

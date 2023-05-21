@@ -1,14 +1,14 @@
-import os
-os.chdir("natural_selection_sim-main/")
+# Fichier contenant les listes ainsi que les fonctions pour agir sur les listes
+
 # Liste contenant l'ensemble des individus
-liste = []
+liste_individus = []
 # Liste contenant l'ensemble de la nourriture
 liste_food = []
 
 
 # Fonctions permettant d'intéragir avec les listes
-def add(liste, creature):
-    liste.append(creature)
+def add(liste, e):
+    liste.append(e)
     
 def len(liste):
     return len(liste)

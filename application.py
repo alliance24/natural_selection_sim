@@ -1,14 +1,13 @@
-import pygame
-import constantes
+import os
+os.chdir("natural_selection_sim-main/")
+import pygame, constantes, queue
 from stats import *
 from Simulation import *
 import queue
-from queue import liste
-from queue import liste_food
 
 
 nb_individu = 15
-facteur_food = 100 # facteur de nourriture
+facteur_food = 1000 # facteur de nourriture
 
 class App:
     def __init__(self) -> None:
@@ -28,19 +27,17 @@ class App:
         self.chrono = pygame.time.Clock()
         
     #Boucle principale du programme
-    def boucle(self) -> None:
+    def main(self) -> None:
         
-        
+        for e in range(int((self.food*nb_individu)/100)):
+                e = Food()
+                queue.liste_food.append(e)
         
         
         #On fait 10 secondes par tours, 60 * 10 soit 600 boucles par tour, avant de passer à un nouveau tour         
         while self.lecture:
             count = 1
             self.stats.individus_per_round[count-1].append(count)
-            
-            for e in range(int((self.food*nb_individu)/100)):
-                e = Food()
-                queue.add(liste_food, e)
             
             
             for _ in range(self.FPS * 10): # Pour chaque frame d'un tour
@@ -97,5 +94,5 @@ class App:
     
     
 run = App()
-run.boucle()
+run.main()
 
