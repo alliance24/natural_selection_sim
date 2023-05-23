@@ -13,8 +13,5 @@ def add(liste, e):
 def len(liste):
     return len(liste)
 
-def retirer(index, liste):
-    del liste[index]
-
 def clear(liste):
     liste = []

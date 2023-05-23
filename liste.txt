@@ -10,17 +10,14 @@ bonhomme
 paramètres globaux
     - nb bonhomme choisit au départ
     - un taux de nourriture (100% nourriture = autant que d'individus)
+    - champ de vision
     - vitesse du tour (facteur)
     - bouton nb de tours à faire avant la pause (nombre de tours à faire sans s'arrêter)
-
-
-- déplacements aléatoire mais qui se dirige dans son champ de vision si nourriture
-
 
 
 fenêtre
 - screen (white)
 - surface general (red) - surface stats (green) - surface settings (blue)
 
-créer une classe bouton 
-vérifier si la souris est aux coordonnées 
+
+- 

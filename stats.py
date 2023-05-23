@@ -23,6 +23,15 @@ class Statistiques():
                 sum += individu.size
         return sum/count
     
+    def moyenne_view(self):
+        for individu in queue.liste_individus:
+            count = 0
+            sum = 0
+            if individu.alive == True:
+                count += 1
+                sum += individu.size
+        return sum/count
+    
     
     
     

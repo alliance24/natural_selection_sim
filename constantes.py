@@ -26,3 +26,19 @@ Y_STATS = 0.51*hauteur
 
 # Tailles
 TAILLE_FOOD = 12
+
+LARGEUR_BOUTON = 100
+HAUTEUR_BOUTON = 50
+
+# Positions relatives du bouton start
+
+# x par rapport aux settings: ((largeur_fenetre-hauteur_fenetre*1.01)-largeur_bouton)/2
+# x par rapport à la fenêtre: x surface_settings + x par rapport aux settings
+x_bouton_settings = ((largeur-hauteur*1.01)-LARGEUR_BOUTON)/2
+x_bouton_fenetre = X_SETTINGS + x_bouton_settings
+
+
+# y par rapport aux settings: ((0.48*hauteur_fenetre)*0.9)-hauteur_bouton
+# y par rapport à la fenêtre: y surface_settings + y par rapport aux settings
+y_bouton_settings = ((0.48*hauteur)*0.9)-HAUTEUR_BOUTON
+y_bouton_fenetre = Y_SETTINGS + y_bouton_settings

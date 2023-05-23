@@ -1,37 +1,54 @@
-import pygame
+import pygame, constantes
 
 class Button():
-    def __init__(self, screen):
+    def __init__(self, x, y):
         self.etat_click = False
-        self.x = 0
-        self.y = 0
-        self.image = pygame.transform.scale(pygame.image.load("assets/start_button_troll.png"), (200, 200))
+        self.x = x
+        self.y = y
+        self.image = pygame.transform.scale(pygame.image.load("assets/start_button_troll.png"), (constantes.LARGEUR_BOUTON, constantes.HAUTEUR_BOUTON))
         self.rect = self.image.get_rect()
+    
+    def Afficher(self, fenetre):
+        fenetre.blit(self.image, (self.x, self.y))
 
-
-
-# mouse = pygame.mouse.get_pos()
-
-#     if ev.type == pygame.MOUSEBUTTONDOWN:
+def check_souris(bouton):
+        mouse = pygame.mouse.get_pos()
+        if (mouse[0] >= constantes.x_bouton_fenetre and mouse[0] <= constantes.x_bouton_fenetre + constantes.LARGEUR_BOUTON) and (mouse[1] >= constantes.y_bouton_fenetre and mouse[1] <= constantes.y_bouton_fenetre + constantes.HAUTEUR_BOUTON):
+            return True
+        else:
+            return False
+            
         
-#         #if the mouse is clicked on the
-#         # button the game is terminated
-#         if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:
-#             pygame.quit()
-				
-	
-# 	# stores the (x,y) coordinates into
-# 	# the variable as a tuple
-	
-	
-# 	# if mouse is hovered on a button it
-# 	# changes to lighter shade
-# 	if width/2 <= mouse[0] <= width/2+140 and height/2 <= mouse[1] <= height/2+40:
-# 		pygame.draw.rect(screen,color_light,[width/2,height/2,140,40])
-		
-# 	else:
-# 		pygame.draw.rect(screen,color_dark,[width/2,height/2,140,40])
-	
-# 	# superimposing the text onto our button
-# 	screen.blit(text , (width/2+50,height/2))
+        # morceau de code pour tester si ça marche
+        # if mouse[0] >= 0 and mouse[1] >= 0:
+        #     return True
+        # else:
+        #     return False
+        
+def ecran_vierge(fenetre):
+    # On commence par effacer l'écran de la frame précédante en coloriant l'écran
+    fenetre.fill("white")
+                
+    # On crée les différentes surfaces
+    surface_general = pygame.Surface((constantes.LARGEUR_GENERAL, constantes.HAUTEUR_GENERAL)) # dimensions (largeur-hauteur)
+    surface_settings = pygame.Surface((constantes.LARGEUR_SETTINGS, constantes.HAUTEUR_SETTINGS))
+    surface_stats = pygame.Surface((constantes.LARGEUR_STATS, constantes.HAUTEUR_STATS))
+    
+    
+    # On leur donne des couleurs
+    surface_general.fill("black")  # couleur rouge
+    surface_stats.fill((0, 133, 31))  # couleur verte
+    surface_settings.fill("blue")  # couleur bleu
+
+    # Button.Afficher(surface_settings)
+    image = pygame.transform.scale(pygame.image.load("assets/start_button_troll.png"), (constantes.LARGEUR_BOUTON, constantes.HAUTEUR_BOUTON))
+    surface_settings.blit(image, (constantes.x_bouton_settings, constantes.y_bouton_settings))
+    
+    # On injecte les surfaces sur l'écran
+    fenetre.blit(surface_general, (constantes.X_GENERAL, constantes.Y_GENERAL)) # coordonnées (x, y)
+    fenetre.blit(surface_settings, (constantes.X_SETTINGS, constantes.Y_SETTINGS))
+    fenetre.blit(surface_stats, (constantes.X_STATS, constantes.Y_STATS))
+    
+    pygame.display.flip()
+
 	
