@@ -5,7 +5,7 @@ class Button():
         self.etat_click = False
         self.x = 0
         self.y = 0
-        self.image = pygame.transform.scale(pygame.image.load(""), (2, 2))
+        self.image = pygame.transform.scale(pygame.image.load("assets/start_button_troll.png"), (200, 200))
         self.rect = self.image.get_rect()
 
 
