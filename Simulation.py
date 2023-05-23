@@ -1,4 +1,4 @@
-import pygame, constantes, queue
+import pygame, constantes, queue, UI
 from Creature import *
 from class_food import *
 

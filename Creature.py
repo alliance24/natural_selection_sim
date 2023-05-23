@@ -44,6 +44,7 @@ class Creature(pygame.sprite.Sprite):
     def move(self):
         self.x += random.randint(-int(self.speed * self.deplacement), int(self.speed * self.deplacement))
         self.y += random.randint(-int(self.speed * self.deplacement), int(self.speed * self.deplacement))
+        
     # # Probabilité de changer de direction
     #     probability = 1
     #     if random.random() <= probability / 100:

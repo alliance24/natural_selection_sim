@@ -21,3 +21,6 @@ paramètres globaux
 fenêtre
 - screen (white)
 - surface general (red) - surface stats (green) - surface settings (blue)
+
+créer une classe bouton 
+vérifier si la souris est aux coordonnées 
