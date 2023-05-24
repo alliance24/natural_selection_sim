@@ -96,20 +96,31 @@ class Simulation:
         
         queue.liste_food.clear() # On réinitialise la nourriture
         
+        print("La longueur de la liste est: ", len(queue.liste_individus))
+        print(queue.liste_individus)
+        
         # On tue des individus
+        self.stats.nb_individus_dead =0
         for individu in queue.liste_individus:
+            print("------------------")
+            print(individu)
+            # print(individu.food)
             if individu.food < 1:
                 individu.alive = False
-            if not individu.alive:
+                print("Tue")
                 queue.liste_individus.remove(individu)
+                self.stats.nb_individus_dead+=1
         
+        print(queue.liste_individus)
         nb_indiv_alive = len(queue.liste_individus) # Compteur des individus vivants après la génération
+        #print(self.stats.nb_individus_dead)
         
         # On regénère des individus
         for individu in queue.liste_individus:
             if individu.food >= 2:
                 queue.liste_individus.append(Creature(self.generation))
                 self.stats.births += 1
+        self.stats.births=0    # Reset de se même compteur
                 
         
         for e in range(int((facteur_food*nb_indiv_alive)/100)): # On regénère de la nourriture en fonction du nb d'individus vivants et du facteur

@@ -7,7 +7,7 @@ from UI import *
 
 
 nb_individu = 5
-facteur_food = 1000 # facteur de nourriture
+facteur_food = 0 # facteur de nourriture
 
 
 class App:

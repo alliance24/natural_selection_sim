@@ -6,12 +6,12 @@ import queue
 class Statistiques():
     
     def __init__(self):
-        self.nb_individus_start = 0
-        self.nb_individus_end = 0
-        self.nb_individus_dead = self.nb_individus_start - self.nb_individus_end
-        self.births = 0
-        self.food_proportion = None
-        self.individus_per_round = [[], []]
+        self.nb_individus_start = 0 #nombre d'individu au tout début de la simulation 
+        self.births = 0 #nombre de naissance sur le nouveau tour 
+        self.nb_individus_total = self.nb_individus_start + self.births #nombre d'induvidu total depuis le début de la simulation
+        #self.nb_individus_alive =self.nb_individus_start #nombre d'individu qui ont survécue a la dernière génération
+        self.nb_individus_dead = 0 #Nombre d'individu qui n'ont pas survécu a la dernière génération
+        # self.nb_individus_dead_total = self.nb_individus_total - self.nb_individus_alive #Nombre d'individue mort depuis le début de la simulation 
         
         
     def moyenne_size(self):
