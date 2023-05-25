@@ -1,13 +1,13 @@
 import os
 os.chdir("natural_selection_sim-main/")
-import pygame, constantes, queue
+import pygame, constantes
 
 from Simulation import *
 from UI import *
 
 
-nb_individu = 5
-facteur_food = 0 # facteur de nourriture
+nb_individu = 25
+facteur_food = 100 # facteur de nourriture
 
 
 class App:
@@ -26,7 +26,8 @@ class App:
         self.chrono = pygame.time.Clock()
 
         # Création des boutons
-        self.bouton_start = Button(constantes.x_bouton_settings, constantes.y_bouton_settings)
+        self.bouton_start = Button(constantes.x_bouton_start_settings, constantes.y_bouton_start_settings, "assets/start_bouton_troll.png")
+        self.bouton_plus_individus = Button(constantes.x_bouton_start_settings, constantes.y_bouton_start_settings, "assets/plus_bouton.png")
         
         
     # Boucle principale du programme
@@ -39,7 +40,7 @@ class App:
             
             while self.pause == True:
                 self.Demande_Evenements()
-                ecran_vierge(self.screen)
+                ecran_avant_début(self.screen)
         
             
             for _ in range(self.FPS * 15): # Pour chaque frame d'un tour
@@ -63,6 +64,7 @@ class App:
                 self.simulation.Afficher(self.screen)
                 
                 self.bouton_start.Afficher(self.simulation.surface_settings)
+                self.bouton_plus_individus.Afficher(self.simulation.surface_settings)
 
                 # pygame.display.flip() doit être appelée à chaque frame pour actualiser la fenêtre
                 pygame.display.flip()
@@ -90,7 +92,17 @@ class App:
                 self.lecture = False
                 break
             # Si l'utilisateur appuie sur le bouton start
-            if event.type == pygame.MOUSEBUTTONDOWN and check_souris(self.bouton_start) == True:
+            if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_start") == True:
+                # self.lecture = True
+                self.pause = not self.pause
+                break
+            # Si l'utilisateur appuie sur le bouton plus individus
+            if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_plus_nb_individus") == True:
+                # self.lecture = True
+                self.pause = not self.pause
+                break
+            # Si l'utilisateur appuie sur le bouton moins individus
+            if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_moins_nb_individus") == True:
                 # self.lecture = True
                 self.pause = not self.pause
                 break

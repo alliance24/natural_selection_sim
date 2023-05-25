@@ -25,10 +25,10 @@ class Creature(pygame.sprite.Sprite):
         
         self.max_x = int(constantes.LARGEUR_GENERAL - self.new_size) # Détermine la position x maximale pour rester dans la surface
         self.max_y = int(constantes.HAUTEUR_GENERAL - self.new_size) # Détermine la position y maximale pour rester dans la surface
-        self.x = random.randint(self.new_size, self.max_x) # Donne une positione en x qui se place dans la surface
-        self.y = random.randint(self.new_size, self.max_y) # Donne une positione en y qui se place dans la surface
+        self.x = random.randint(self.new_size, self.max_x) # Donne une position en x qui se place dans la surface
+        self.y = random.randint(self.new_size, self.max_y) # Donne une position en y qui se place dans la surface
         
-        self.direction_x = random.choice([-1, 0, 1]) # Déplacement aléatoire en x sois en positif sois en négatif sois a l'arrêt
+        self.direction_x = random.choice([-1, 0, 1]) # Déplacement aléatoire en x soit en positif, soit en négatif, soit a l'arrêt
         self.direction_y = random.choice([-1, 0, 1]) # De même en y 
     
         
@@ -40,12 +40,12 @@ class Creature(pygame.sprite.Sprite):
             return False
 
         
-    #déplacement: 
-    def view_food(self): #Détermine si autour de la créature une nouriture est présente*
+    # Déplacement: 
+    def view_food(self): # Détermine si autour de la créature une nouriture est présente
         for food in queue.liste_food:
-            if food.eat == False: #si la nouriture n'as pas été manger on regarde la distance euclédienne avec la créature 
+            if food.eat == False: # Si la nouriture n'a pas été mangé on regarde la distance euclidienne avec la créature 
                 if ((food.x - self.x) ** 2 + (food.y - self.y) ** 2) ** 0.5 <= (self.size+self.view):
-                    return True, food.x, food.y # On renvoie aussi les coordonées de la nouriture pour en faire une target
+                    return True, food.x, food.y # On renvoie aussi les coordonnées de la nourriture pour en faire une target
 
 
     def move (self):
@@ -54,13 +54,13 @@ class Creature(pygame.sprite.Sprite):
 
         view_food_result = self.view_food() 
 
-        # Déplace la créature dans la direction de la nouriture si elle est présente au alantour 
+        # Déplace la créature dans la direction de la nourriture si elle est présente aux alentours
 
         if view_food_result !=None:
-            view, x_food, y_food = self.view_food()# on stock les différente données
+            view, x_food, y_food = self.view_food() # On stocke les différentes données
 
             if view==True:
-                #Celon la position de la nourriture par rapport a la créature les calcules changent
+                # Selon la position de la nourriture par rapport à la créature les calculs changent
                 if x_food > self.x:
                     if x_food - self.x > int(self.speed * self.deplacement):
                         self.x += int(self.speed * self.deplacement)

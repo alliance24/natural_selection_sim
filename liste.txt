@@ -18,6 +18,3 @@ paramètres globaux
 fenêtre
 - screen (white)
 - surface general (red) - surface stats (green) - surface settings (blue)
-
-
-- 

@@ -23,18 +23,11 @@ class Simulation:
         
     def Mise_A_Jour(self) -> None:
         # Ce qui est différent d'une frame à l'autre; toutes les actualisations se font ici
-        # print("------------------------------------------------------------------------------")
         for individu in queue.liste_individus:
             if individu.alive == True:
-                # print("---------------------------")
-                # print(individu.x, individu.y)
                 individu.move()
-                # print(individu.x, individu.y)
-                # print("---------------------------")
-                # print(individu.rect)
                 for food in queue.liste_food:
                     if food.eat == False:
-                        # print(food.x, food.y)
                         if individu.eat(food.get_x(), food.get_y()):
                             food.eat = True
     
@@ -43,9 +36,20 @@ class Simulation:
         # Couleur du texte (blanc)
         couleur_texte = (255, 255, 255)
         # Chargement de la police
-        police = pygame.font.Font(None, 36)  # None spécifie la police par défaut, 36 est la taille de la police
+        police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
         # Création de l'objet texte
         texte_generation = police.render("generation : {}".format(self.generation), True, couleur_texte)
+        # Position du texte
+        position_texte = ((0.05*constantes.LARGEUR_STATS), (0.05*constantes.HAUTEUR_STATS))
+        fenetre.blit(texte_generation, position_texte)
+        
+    def texte_nb_individus(self, fenetre):
+        # Couleur du texte (blanc)
+        couleur_texte = (255, 255, 255)
+        # Chargement de la police
+        police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
+        # Création de l'objet texte
+        texte_generation = police.render("individus : {}".format(self.nb_creature), True, couleur_texte)
         # Position du texte
         position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.05*constantes.HAUTEUR_SETTINGS))
         fenetre.blit(texte_generation, position_texte)
@@ -69,7 +73,6 @@ class Simulation:
         self.surface_settings.fill("blue")  # couleur bleu
         
         
-        
         # On injecte la nourriture sur l'écran
         for food in queue.liste_food:
             if food.eat == False:
@@ -82,6 +85,7 @@ class Simulation:
         
         # Affiche les textes (comme le numéro de la génération)
         self.texte_generation(self.surface_stats)
+        self.texte_nb_individus(self.surface_settings)
         
         # On injecte les surfaces sur l'écran
         fenetre.blit(self.surface_stats, (constantes.X_STATS, constantes.Y_STATS))    
@@ -91,27 +95,19 @@ class Simulation:
         
         
     def Nouveau_tour(self, facteur_food):
-        
+        self.nb_creature = 0
         self.generation += 1
         
         queue.liste_food.clear() # On réinitialise la nourriture
         
-        print("La longueur de la liste est: ", len(queue.liste_individus))
-        print(queue.liste_individus)
-        
         # On tue des individus
         self.stats.nb_individus_dead =0
-        for individu in queue.liste_individus:
-            print("------------------")
-            print(individu)
-            # print(individu.food)
+        for individu in reversed(queue.liste_individus): # On itère depuis la fin de la liste pour éviter un problème d'indice lors de la suppression des individus
             if individu.food < 1:
                 individu.alive = False
-                print("Tue")
                 queue.liste_individus.remove(individu)
                 self.stats.nb_individus_dead+=1
         
-        print(queue.liste_individus)
         nb_indiv_alive = len(queue.liste_individus) # Compteur des individus vivants après la génération
         #print(self.stats.nb_individus_dead)
         
@@ -121,8 +117,13 @@ class Simulation:
                 queue.liste_individus.append(Creature(self.generation))
                 self.stats.births += 1
         self.stats.births=0    # Reset de se même compteur
-                
         
+        
+        
+        for individu in queue.liste_individus:
+            individu.food = 0
+            self.nb_creature += 1
+                
         for e in range(int((facteur_food*nb_indiv_alive)/100)): # On regénère de la nourriture en fonction du nb d'individus vivants et du facteur
                 e = Food()
                 queue.liste_food.append(e)
