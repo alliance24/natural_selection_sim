@@ -10,11 +10,16 @@ bonhomme
 paramètres globaux
     - nb bonhomme choisit au départ
     - un taux de nourriture (100% nourriture = autant que d'individus)
-    - champ de vision
-    - vitesse du tour (facteur)
-    - bouton nb de tours à faire avant la pause (nombre de tours à faire sans s'arrêter)
+    - temps d'un tour (en secondes, -1; +1)
 
 
 fenêtre
 - screen (white)
 - surface general (red) - surface stats (green) - surface settings (blue)
+
+Liste choses à faires:
+- boutons settings
+- calcul et affichage des statistiques
+- panneau de fin
+- potentiellement exporter excel
+

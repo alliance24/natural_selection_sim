@@ -1,12 +1,11 @@
 import os
 os.chdir("natural_selection_sim-main/")
 import pygame, constantes
-
+from queue import *
 from Simulation import *
 from UI import *
 
 
-nb_individu = 25
 facteur_food = 100 # facteur de nourriture
 
 
@@ -27,13 +26,13 @@ class App:
 
         # Création des boutons
         self.bouton_start = Button(constantes.x_bouton_start_settings, constantes.y_bouton_start_settings, "assets/start_bouton_troll.png")
-        self.bouton_plus_individus = Button(constantes.x_bouton_start_settings, constantes.y_bouton_start_settings, "assets/plus_bouton.png")
-        
+        self.bouton_plus_individus = Button(constantes.x_bouton_plus_individus_settings, constantes.y_bouton_plus_individus_settings, "assets/plus_bouton.png")
+        self.bouton_moins_individus = Button(constantes.x_bouton_moins_individus_settings, constantes.y_bouton_moins_individus_settings, "assets/moins_bouton.png")
         
     # Boucle principale du programme
     def main(self) -> None:
         
-        self.simulation = Simulation(nb_individu, facteur_food)
+        self.simulation = Simulation(queue.nb_individus, facteur_food)
         
         # On fait 15 secondes par tours, 20 * 15 soit 300 boucles par tour, avant de passer à un nouveau tour         
         while self.lecture:
@@ -65,6 +64,7 @@ class App:
                 
                 self.bouton_start.Afficher(self.simulation.surface_settings)
                 self.bouton_plus_individus.Afficher(self.simulation.surface_settings)
+                self.bouton_moins_individus.Afficher(self.simulation.surface_settings)
 
                 # pygame.display.flip() doit être appelée à chaque frame pour actualiser la fenêtre
                 pygame.display.flip()
@@ -72,8 +72,8 @@ class App:
                 # On limite le nombre d'itérations par seconde à 20 grâce à pygame
                 self.chrono.tick(self.FPS)
             else:
-            #     # C'est une boucle for-else, ce else se déclenche uniquement si aucun "break" n'a été déclenché
-            #     # Après 15 secondes, on démarre un nouveau tour, naissances, morts, apparition de nourriture
+                # C'est une boucle for-else, ce else se déclenche uniquement si aucun "break" n'a été déclenché
+                # Après 15 secondes, on démarre un nouveau tour, naissances, morts, apparition de nourriture
                 self.simulation.Nouveau_tour(facteur_food)
 
         # On arrive ici uniquement si l'utilisateur souhaite quitter le programme, donc on ferme pygame
@@ -98,7 +98,7 @@ class App:
                 break
             # Si l'utilisateur appuie sur le bouton plus individus
             if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_plus_nb_individus") == True:
-                # self.lecture = True
+                
                 self.pause = not self.pause
                 break
             # Si l'utilisateur appuie sur le bouton moins individus
@@ -115,4 +115,3 @@ class App:
     
 run = App()
 run.main()
-

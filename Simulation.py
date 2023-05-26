@@ -9,7 +9,6 @@ class Simulation:
         self.generation = 1 # Numéro de tour (commence donc à 1)
         self.stats = Statistiques()
         
-        self.nb_creature = nb_creature
         self.facteur_food = facteur_food
         
         for individu in range(nb_creature):
@@ -49,7 +48,7 @@ class Simulation:
         # Chargement de la police
         police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
         # Création de l'objet texte
-        texte_generation = police.render("individus : {}".format(self.nb_creature), True, couleur_texte)
+        texte_generation = police.render("individus : {}".format(queue.nb_individus), True, couleur_texte)
         # Position du texte
         position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.05*constantes.HAUTEUR_SETTINGS))
         fenetre.blit(texte_generation, position_texte)
@@ -95,7 +94,7 @@ class Simulation:
         
         
     def Nouveau_tour(self, facteur_food):
-        self.nb_creature = 0
+        queue.nb_individus = 0
         self.generation += 1
         
         queue.liste_food.clear() # On réinitialise la nourriture
@@ -122,7 +121,7 @@ class Simulation:
         
         for individu in queue.liste_individus:
             individu.food = 0
-            self.nb_creature += 1
+            queue.nb_individus += 1
                 
         for e in range(int((facteur_food*nb_indiv_alive)/100)): # On regénère de la nourriture en fonction du nb d'individus vivants et du facteur
                 e = Food()

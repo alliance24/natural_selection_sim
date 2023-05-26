@@ -87,6 +87,8 @@ def ecran_avant_début(fenetre):
     image = pygame.transform.scale(pygame.image.load("assets/plus_bouton.png"), (constantes.LARGEUR_BOUTON_PLUS, constantes.HAUTEUR_BOUTON_PLUS))
     surface_settings.blit(image, (constantes.x_bouton_plus_individus_settings, constantes.y_bouton_plus_individus_settings))
     
+    image = pygame.transform.scale(pygame.image.load("assets/moins_bouton.png"), (constantes.LARGEUR_BOUTON_MOINS, constantes.HAUTEUR_BOUTON_MOINS))
+    surface_settings.blit(image, (constantes.x_bouton_moins_individus_settings, constantes.y_bouton_moins_individus_settings))
 
     texte_generation(surface_stats)
     texte_nb_individus(surface_settings)

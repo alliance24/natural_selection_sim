@@ -1,4 +1,7 @@
-# Fichier contenant les listes ainsi que les fonctions pour agir sur les listes
+# Fichier contenant les listes, les variables ainsi que les fonctions pour agir sur les listes
+nb_individus = 25
+
+
 
 # Liste contenant l'ensemble des individus
 liste_individus = []
