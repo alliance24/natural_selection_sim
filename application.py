@@ -6,7 +6,6 @@ from Simulation import *
 from UI import *
 
 
-facteur_food = 100 # facteur de nourriture
 
 
 class App:
@@ -28,22 +27,27 @@ class App:
         self.bouton_start = Button(constantes.x_bouton_start_settings, constantes.y_bouton_start_settings, "assets/start_bouton_troll.png")
         self.bouton_plus_individus = Button(constantes.x_bouton_plus_individus_settings, constantes.y_bouton_plus_individus_settings, "assets/plus_bouton.png")
         self.bouton_moins_individus = Button(constantes.x_bouton_moins_individus_settings, constantes.y_bouton_moins_individus_settings, "assets/moins_bouton.png")
-        
+        self.bouton_moins_food = Button(constantes.x_bouton_moins_food_settings, constantes.y_bouton_moins_food_settings,"assets/moins_bouton.png")
+        self.bouton_plus_food = Button(constantes.x_bouton_plus_food_settings, constantes.y_bouton_plus_food_settings,"assets/plus_bouton.png")
+        self.bouton_moins_time = Button(constantes.x_bouton_moins_time_settings, constantes.y_bouton_moins_time_settings,"assets/moins_bouton.png")
+
     # Boucle principale du programme
     def main(self) -> None:
-        
-        self.simulation = Simulation(queue.nb_individus, facteur_food)
-        
-        # On fait 15 secondes par tours, 20 * 15 soit 300 boucles par tour, avant de passer à un nouveau tour         
-        while self.lecture:
-            
-            while self.pause == True:
+        while self.pause == True:
                 self.Demande_Evenements()
                 ecran_avant_début(self.screen)
+
+        self.simulation = Simulation(queue.nb_individus, queue.facteur_food)
         
+        # On fait n secondes par tours, 20 * n soit 20*n boucles par tour, avant de passer à un nouveau tour         
+        while self.lecture:
+
             
-            for _ in range(self.FPS * 15): # Pour chaque frame d'un tour
+            
+            for _ in range(self.FPS * queue.time_generation): # Pour chaque frame d'un tour
+
                 while self.pause:
+                    
                     # Si le jeu est en pause il faut quand même vérifier si l'utilisateur rappuie sur pause ou sur quitter
                     if not self.lecture: break
                     self.Demande_Evenements()
@@ -52,19 +56,25 @@ class App:
                     self.chrono.tick(self.FPS)
 
                 if not self.lecture: break
-
+                
                 # Les 3 fonctions les plus importantes de ce programme : elles sont appelées successivement à chaque frame
                 # 1) On gère les appuis de touches de clavier (évenements) à partir de la liste d'évenements donnée par pygame
                 # 2) On actualise la simulation et chaque individu
                 # 3) On affiche tous les éléments graphiques
-                
+                queue.seconde-=1
+                if queue.seconde %20 == 0: # Il y a 20 FPS pour n nombre de seconde donc on regarde si le nombre est multiple de 20 pour retirer 1 seconde au timer
+                    queue.timer-=1                
                 self.Demande_Evenements()
                 self.simulation.Mise_A_Jour()
                 self.simulation.Afficher(self.screen)
                 
-                self.bouton_start.Afficher(self.simulation.surface_settings)
-                self.bouton_plus_individus.Afficher(self.simulation.surface_settings)
-                self.bouton_moins_individus.Afficher(self.simulation.surface_settings)
+                #inutil? 
+                # self.bouton_start.Afficher(self.simulation.surface_settings)
+                # self.bouton_plus_individus.Afficher(self.simulation.surface_settings)
+                # self.bouton_moins_individus.Afficher(self.simulation.surface_settings)
+                # self.bouton_moins_food.Afficher(self.simulation.surface_settings)
+                # self.bouton_plus_food.Afficher(self.simulation.surface_settings)
+
 
                 # pygame.display.flip() doit être appelée à chaque frame pour actualiser la fenêtre
                 pygame.display.flip()
@@ -72,9 +82,10 @@ class App:
                 # On limite le nombre d'itérations par seconde à 20 grâce à pygame
                 self.chrono.tick(self.FPS)
             else:
+                queue.timer= queue.time_generation
                 # C'est une boucle for-else, ce else se déclenche uniquement si aucun "break" n'a été déclenché
                 # Après 15 secondes, on démarre un nouveau tour, naissances, morts, apparition de nourriture
-                self.simulation.Nouveau_tour(facteur_food)
+                self.simulation.Nouveau_tour(queue.facteur_food)
 
         # On arrive ici uniquement si l'utilisateur souhaite quitter le programme, donc on ferme pygame
         pygame.quit()
@@ -94,18 +105,29 @@ class App:
             # Si l'utilisateur appuie sur le bouton start
             if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_start") == True:
                 # self.lecture = True
+                print(queue.seconde)
                 self.pause = not self.pause
                 break
             # Si l'utilisateur appuie sur le bouton plus individus
             if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_plus_nb_individus") == True:
-                
-                self.pause = not self.pause
-                break
+                queue.nb_individus += 1
             # Si l'utilisateur appuie sur le bouton moins individus
             if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_moins_nb_individus") == True:
-                # self.lecture = True
-                self.pause = not self.pause
-                break
+                if queue.nb_individus>0:
+                    queue.nb_individus -= 1
+ 
+            if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_moins_food"):
+                if queue.facteur_food >= 5:
+                    queue.facteur_food -= 5
+            if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_plus_food"):
+                queue.facteur_food += 5
+            if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_moins_time"):
+                if queue.time_generation>0:
+                    queue.time_generation -=1   
+            if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_plus_time"):
+                queue.time_generation +=1
+
+
             # Si l'utilisateur appuie sur la touche p, met la simualtion en pause
             if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
                 self.pause = not self.pause

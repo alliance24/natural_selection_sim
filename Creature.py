@@ -11,12 +11,12 @@ class Creature(pygame.sprite.Sprite):
         self.alive = True # Définit le statut de l'individu (mort ou vif)
         self.generation = generation
     
-        self.speed = random.uniform(1, 2.25)
         self.deplacement = random.randint(1, 15) # Variable qui donne le nombre de pixels parcouru à chaque déplacement
         self.size = random.uniform(0.75, 1.25) # Facteur varaiation de taille, multiplié à une base de 18 pixels de hauteur/largeur
         self.new_size = int(18*self.size) # Nouvelle taille
+        self.speed = random.uniform(1, 2.25)*(2-self.size)
         self.food = 0 # Niveau de nourriture initial de l'individu
-        self.view = random.randint(30, 60) # Capacitées optiques de l'individu
+        self.view = random.randint(40, 90) # Capacitées optiques de l'individu
         
         self.image = pygame.transform.scale(pygame.image.load("assets/rubiks.png"), (self.new_size, self.new_size))
         self.rect = self.image.get_rect()

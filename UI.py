@@ -1,5 +1,6 @@
-import pygame, constantes
+import pygame, constantes, queue
 from Simulation import *
+
 
 class Button():
     def __init__(self, x, y, chemin_image):
@@ -20,18 +21,31 @@ class Button():
         fenetre.blit(self.image, (self.x, self.y))
 
 def check_souris(bouton):
-        mouse = pygame.mouse.get_pos()
-        # On cherche de quel bouton il s'agit
-        if bouton == "bouton_start":
-            if (mouse[0] >= constantes.x_bouton_start_fenetre and mouse[0] <= constantes.x_bouton_start_fenetre + constantes.LARGEUR_BOUTON_START) and (mouse[1] >= constantes.y_bouton_start_fenetre and mouse[1] <= constantes.y_bouton_start_fenetre + constantes.HAUTEUR_BOUTON_START):
-                return True
-        elif bouton == "bouton_plus_nb_individus":
-            return
-        elif bouton == "bouton_moins_nb_individus":
-            return
-        
-        else:
-            return False
+    mouse = pygame.mouse.get_pos()
+    # On cherche de quel bouton il s'agit
+    if bouton == "bouton_start":
+        if (mouse[0] >= constantes.x_bouton_start_fenetre and mouse[0] <= constantes.x_bouton_start_fenetre + constantes.LARGEUR_BOUTON_START) and (mouse[1] >= constantes.y_bouton_start_fenetre and mouse[1] <= constantes.y_bouton_start_fenetre + constantes.HAUTEUR_BOUTON_START):
+            return True
+    elif bouton == "bouton_moins_nb_individus":
+        if (mouse[0] >= constantes.x_bouton_moins_individus_fenetre and mouse[0] <= constantes.x_bouton_moins_individus_fenetre + constantes.LARGEUR_BOUTON_MOINS) and (mouse[1] >= constantes.y_bouton_moins_individus_fenetre and mouse[1] <= constantes.y_bouton_moins_individus_fenetre + constantes.HAUTEUR_BOUTON_MOINS):
+            return True
+    elif bouton == "bouton_plus_nb_individus":
+        if (mouse[0] >= constantes.x_bouton_plus_individus_fenetre and mouse[0] <= constantes.x_bouton_plus_individus_fenetre + constantes.LARGEUR_BOUTON_PLUS) and (mouse[1] >= constantes.y_bouton_plus_individus_fenetre and mouse[1] <= constantes.y_bouton_plus_individus_fenetre + constantes.HAUTEUR_BOUTON_PLUS):
+            return True
+    elif bouton == "bouton_moins_food":
+        if (mouse[0] >= constantes.x_bouton_moins_food_fenetre and mouse[0] <= constantes.x_bouton_moins_food_fenetre + constantes.LARGEUR_BOUTON_MOINS) and (mouse[1] >= constantes.y_bouton_moins_food_fenetre and mouse[1] <= constantes.y_bouton_moins_food_fenetre + constantes.HAUTEUR_BOUTON_MOINS):
+            return True
+    elif bouton == "bouton_plus_food":
+        if (mouse[0] >= constantes.x_bouton_plus_food_fenetre and mouse[0] <= constantes.x_bouton_plus_food_fenetre + constantes.LARGEUR_BOUTON_PLUS) and (mouse[1] >= constantes.y_bouton_plus_food_fenetre and mouse[1] <= constantes.y_bouton_plus_food_fenetre + constantes.HAUTEUR_BOUTON_PLUS):
+            return True
+    elif bouton == "bouton_moins_time":
+        if (mouse[0] >= constantes.x_bouton_moins_time_fenetre and mouse[0] <= constantes.x_bouton_moins_time_fenetre + constantes.LARGEUR_BOUTON_MOINS) and (mouse[1] >= constantes.y_bouton_moins_time_fenetre and mouse[1] <= constantes.y_bouton_moins_time_fenetre + constantes.HAUTEUR_BOUTON_MOINS):
+            return True
+    elif bouton == "bouton_plus_time":
+        if (mouse[0] >= constantes.x_bouton_plus_time_fenetre and mouse[0] <= constantes.x_bouton_plus_time_fenetre + constantes.LARGEUR_BOUTON_PLUS) and (mouse[1] >= constantes.y_bouton_plus_time_fenetre and mouse[1] <= constantes.y_bouton_plus_time_fenetre + constantes.HAUTEUR_BOUTON_PLUS):
+            return True
+    else:
+        return False
             
         
         # morceau de code pour tester si ça marche
@@ -39,6 +53,17 @@ def check_souris(bouton):
         #     return True
         # else:
         #     return False
+
+def texte_timer(fenetre):
+    # Couleur du texte (blanc)
+    couleur_texte = (255, 255, 255)
+    # Chargement de la police
+    police = pygame.font.Font(None, constantes.POLICE_ECRITURE+5)  # None spécifie la police par défaut, 36 est la taille de la police
+    # Création de l'objet texte
+    texte_generation = police.render("{}".format(queue.timer), True, couleur_texte)
+    # Position du texte
+    position_texte = ((0.85*constantes.LARGEUR_SETTINGS), (0.1*constantes.HAUTEUR_SETTINGS))
+    fenetre.blit(texte_generation, position_texte)   
 
 
 def texte_generation(fenetre):
@@ -58,10 +83,30 @@ def texte_nb_individus(fenetre):
     # Chargement de la police
     police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
     # Création de l'objet texte
-    texte_generation = police.render("individus : 25", True, couleur_texte)
+    texte_generation = police.render("individus : {} ".format(queue.nb_individus), True, couleur_texte)
     # Position du texte
     position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.05*constantes.HAUTEUR_SETTINGS))
     fenetre.blit(texte_generation, position_texte)
+
+def texte_facteur_food(fenetre):
+    # Couleur du texte (blanc)
+    couleur_texte = (255, 255, 255)
+    police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
+    # Création de l'objet texte
+    texte_generation = police.render("facteur food: {} ".format(queue.facteur_food), True, couleur_texte)
+    position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.2*constantes.HAUTEUR_SETTINGS ))
+    fenetre.blit(texte_generation, position_texte)
+
+
+def texte_time_generation(fenetre):
+    # Couleur du texte (blanc)
+    couleur_texte = (255, 255, 255)
+    police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
+    # Création de l'objet texte
+    texte_generation = police.render("time génération: {} s".format(queue.time_generation), True, couleur_texte)
+    position_texte = ((0.35*constantes.LARGEUR_SETTINGS), (0.05*constantes.HAUTEUR_SETTINGS))
+    fenetre.blit(texte_generation, position_texte)
+
 
 def ecran_avant_début(fenetre):
     # On commence par effacer l'écran de la frame précédante en coloriant l'écran
@@ -83,15 +128,31 @@ def ecran_avant_début(fenetre):
     # Affichage des boutons
     image = pygame.transform.scale(pygame.image.load("assets/start_bouton_troll.png"), (constantes.LARGEUR_BOUTON_START, constantes.HAUTEUR_BOUTON_START))
     surface_settings.blit(image, (constantes.x_bouton_start_settings, constantes.y_bouton_start_settings))
-    
+
+    image = pygame.transform.scale(pygame.image.load("assets/moins_bouton.png"), (constantes.LARGEUR_BOUTON_MOINS, constantes.HAUTEUR_BOUTON_MOINS))
+    surface_settings.blit(image, (constantes.x_bouton_moins_individus_settings, constantes.y_bouton_moins_individus_settings))
+        
     image = pygame.transform.scale(pygame.image.load("assets/plus_bouton.png"), (constantes.LARGEUR_BOUTON_PLUS, constantes.HAUTEUR_BOUTON_PLUS))
     surface_settings.blit(image, (constantes.x_bouton_plus_individus_settings, constantes.y_bouton_plus_individus_settings))
     
     image = pygame.transform.scale(pygame.image.load("assets/moins_bouton.png"), (constantes.LARGEUR_BOUTON_MOINS, constantes.HAUTEUR_BOUTON_MOINS))
-    surface_settings.blit(image, (constantes.x_bouton_moins_individus_settings, constantes.y_bouton_moins_individus_settings))
+    surface_settings.blit(image, (constantes.x_bouton_moins_food_settings, constantes.y_bouton_moins_food_settings))
+        
+    image = pygame.transform.scale(pygame.image.load("assets/plus_bouton.png"), (constantes.LARGEUR_BOUTON_PLUS, constantes.HAUTEUR_BOUTON_PLUS))
+    surface_settings.blit(image, (constantes.x_bouton_plus_food_settings, constantes.y_bouton_plus_food_settings))
+
+    image = pygame.transform.scale(pygame.image.load("assets/moins_bouton.png"), (constantes.LARGEUR_BOUTON_MOINS, constantes.HAUTEUR_BOUTON_MOINS))
+    surface_settings.blit(image, (constantes.x_bouton_moins_time_settings, constantes.y_bouton_moins_time_settings))
+        
+    image = pygame.transform.scale(pygame.image.load("assets/plus_bouton.png"), (constantes.LARGEUR_BOUTON_PLUS, constantes.HAUTEUR_BOUTON_PLUS))
+    surface_settings.blit(image, (constantes.x_bouton_plus_time_settings, constantes.y_bouton_plus_time_settings))
+
 
     texte_generation(surface_stats)
     texte_nb_individus(surface_settings)
+    texte_facteur_food(surface_settings)
+    texte_time_generation(surface_settings)
+    texte_timer(surface_settings)
 
     
     # On injecte les surfaces sur l'écran
