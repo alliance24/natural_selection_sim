@@ -22,7 +22,6 @@ class Creature(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         
-        
         self.max_x = int(constantes.LARGEUR_GENERAL - self.new_size) # Détermine la position x maximale pour rester dans la surface
         self.max_y = int(constantes.HAUTEUR_GENERAL - self.new_size) # Détermine la position y maximale pour rester dans la surface
         self.x = random.randint(self.new_size, self.max_x) # Donne une position en x qui se place dans la surface

@@ -1,11 +1,7 @@
 import os
 os.chdir("natural_selection_sim-main/")
-import pygame, constantes
-from queue import *
+import pygame, constantes, UI, queue
 from Simulation import *
-from UI import *
-
-
 
 
 class App:
@@ -24,26 +20,24 @@ class App:
         self.chrono = pygame.time.Clock()
 
         # Création des boutons
-        self.bouton_start = Button(constantes.x_bouton_start_settings, constantes.y_bouton_start_settings, "assets/start_bouton_troll.png")
-        self.bouton_plus_individus = Button(constantes.x_bouton_plus_individus_settings, constantes.y_bouton_plus_individus_settings, "assets/plus_bouton.png")
-        self.bouton_moins_individus = Button(constantes.x_bouton_moins_individus_settings, constantes.y_bouton_moins_individus_settings, "assets/moins_bouton.png")
-        self.bouton_moins_food = Button(constantes.x_bouton_moins_food_settings, constantes.y_bouton_moins_food_settings,"assets/moins_bouton.png")
-        self.bouton_plus_food = Button(constantes.x_bouton_plus_food_settings, constantes.y_bouton_plus_food_settings,"assets/plus_bouton.png")
-        self.bouton_moins_time = Button(constantes.x_bouton_moins_time_settings, constantes.y_bouton_moins_time_settings,"assets/moins_bouton.png")
+        self.bouton_start = UI.Button(constantes.x_bouton_start_settings, constantes.y_bouton_start_settings, "assets/start_bouton_troll.png")
+        self.bouton_plus_individus = UI.Button(constantes.x_bouton_plus_individus_settings, constantes.y_bouton_plus_individus_settings, "assets/plus_bouton.png")
+        self.bouton_moins_individus = UI.Button(constantes.x_bouton_moins_individus_settings, constantes.y_bouton_moins_individus_settings, "assets/moins_bouton.png")
+        self.bouton_moins_food = UI.Button(constantes.x_bouton_moins_food_settings, constantes.y_bouton_moins_food_settings,"assets/moins_bouton.png")
+        self.bouton_plus_food = UI.Button(constantes.x_bouton_plus_food_settings, constantes.y_bouton_plus_food_settings,"assets/plus_bouton.png")
+        self.bouton_moins_time = UI.Button(constantes.x_bouton_moins_time_settings, constantes.y_bouton_moins_time_settings,"assets/moins_bouton.png")
 
     # Boucle principale du programme
     def main(self) -> None:
         while self.pause == True:
             self.Demande_Evenements()
-            ecran_avant_début(self.screen)
+            UI.ecran_avant_début(self.screen)
 
         self.simulation = Simulation(queue.nb_individus, queue.facteur_food)
         queue.timer = queue.time_generation
         
         # On fait n secondes par tours, 20 * n soit 20*n boucles par tour, avant de passer à un nouveau tour         
         while self.lecture:
-
-            
             
             for _ in range(self.FPS * queue.time_generation): # Pour chaque frame d'un tour
 
@@ -59,23 +53,17 @@ class App:
                 if not self.lecture: break
                 
                 # Les 3 fonctions les plus importantes de ce programme : elles sont appelées successivement à chaque frame
-                # 1) On gère les appuis de touches de clavier (évenements) à partir de la liste d'évenements donnée par pygame
+                # 1) On gère les appuis de touches claviers ainsi que les boutons à partir de la liste d’évènements donnée par pygame
                 # 2) On actualise la simulation et chaque individu
                 # 3) On affiche tous les éléments graphiques
+                
                 queue.nb_boucles-=1
                 if queue.nb_boucles %20 == 0: # Il y a 20 FPS pour n nombre de seconde donc on regarde si le nombre est multiple de 20 pour retirer 1 seconde au timer
-                    queue.timer-=1                
+                    queue.timer-=1      
+                              
                 self.Demande_Evenements()
                 self.simulation.Mise_A_Jour()
                 self.simulation.Afficher(self.screen)
-                
-                #inutil? 
-                # self.bouton_start.Afficher(self.simulation.surface_settings)
-                # self.bouton_plus_individus.Afficher(self.simulation.surface_settings)
-                # self.bouton_moins_individus.Afficher(self.simulation.surface_settings)
-                # self.bouton_moins_food.Afficher(self.simulation.surface_settings)
-                # self.bouton_plus_food.Afficher(self.simulation.surface_settings)
-
 
                 # pygame.display.flip() doit être appelée à chaque frame pour actualiser la fenêtre
                 pygame.display.flip()
@@ -104,28 +92,28 @@ class App:
                 self.lecture = False
                 break
             # Si l'utilisateur appuie sur le bouton start
-            if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_start") == True:
+            if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_start") == True:
                 # self.lecture = True
                 print(queue.nb_boucles)
                 self.pause = not self.pause
                 break
             # Si l'utilisateur appuie sur le bouton plus individus
-            if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_plus_nb_individus") == True:
+            if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_plus_nb_individus") == True:
                 queue.nb_individus += 1
             # Si l'utilisateur appuie sur le bouton moins individus
-            if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_moins_nb_individus") == True:
+            if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_moins_nb_individus") == True:
                 if queue.nb_individus>0:
                     queue.nb_individus -= 1
  
-            if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_moins_food"):
+            if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_moins_food"):
                 if queue.facteur_food >= 5:
                     queue.facteur_food -= 5
-            if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_plus_food"):
+            if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_plus_food"):
                 queue.facteur_food += 5
-            if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_moins_time"):
+            if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_moins_time"):
                 if queue.time_generation>0:
                     queue.time_generation -=1   
-            if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_plus_time"):
+            if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_plus_time"):
                 queue.time_generation +=1
 
 
