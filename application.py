@@ -34,10 +34,11 @@ class App:
     # Boucle principale du programme
     def main(self) -> None:
         while self.pause == True:
-                self.Demande_Evenements()
-                ecran_avant_début(self.screen)
+            self.Demande_Evenements()
+            ecran_avant_début(self.screen)
 
         self.simulation = Simulation(queue.nb_individus, queue.facteur_food)
+        queue.timer = queue.time_generation
         
         # On fait n secondes par tours, 20 * n soit 20*n boucles par tour, avant de passer à un nouveau tour         
         while self.lecture:
@@ -61,8 +62,8 @@ class App:
                 # 1) On gère les appuis de touches de clavier (évenements) à partir de la liste d'évenements donnée par pygame
                 # 2) On actualise la simulation et chaque individu
                 # 3) On affiche tous les éléments graphiques
-                queue.seconde-=1
-                if queue.seconde %20 == 0: # Il y a 20 FPS pour n nombre de seconde donc on regarde si le nombre est multiple de 20 pour retirer 1 seconde au timer
+                queue.nb_boucles-=1
+                if queue.nb_boucles %20 == 0: # Il y a 20 FPS pour n nombre de seconde donc on regarde si le nombre est multiple de 20 pour retirer 1 seconde au timer
                     queue.timer-=1                
                 self.Demande_Evenements()
                 self.simulation.Mise_A_Jour()
@@ -105,7 +106,7 @@ class App:
             # Si l'utilisateur appuie sur le bouton start
             if event.type == pygame.MOUSEBUTTONDOWN and check_souris("bouton_start") == True:
                 # self.lecture = True
-                print(queue.seconde)
+                print(queue.nb_boucles)
                 self.pause = not self.pause
                 break
             # Si l'utilisateur appuie sur le bouton plus individus

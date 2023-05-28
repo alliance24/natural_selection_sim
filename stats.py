@@ -1,7 +1,4 @@
 import queue
-# from queue import liste_individus
-# from queue import liste_food
-
 
 class Statistiques():
     

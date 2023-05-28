@@ -18,7 +18,7 @@ fenêtre
 - surface general (red) - surface stats (green) - surface settings (blue)
 
 Liste choses à faires:
-- boutons settings
+- (boutons settings)
 - calcul et affichage des statistiques
 - panneau de fin
 - potentiellement exporter excel
