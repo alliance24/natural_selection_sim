@@ -3,7 +3,9 @@ from UI import *
 from Creature import *
 from class_food import *
 
+
 class Simulation:
+    
     def __init__(self, nb_creature, facteur_food):
         stats.generation = 1 # Numéro de tour (commence donc à 1)
         self.facteur_food = facteur_food
@@ -15,7 +17,6 @@ class Simulation:
         for e in range(int((self.facteur_food*nb_creature)/100)):
                 e = Food()
                 queue.liste_food.append(e)
-        
         
     def Mise_A_Jour(self) -> None:
         # Ce qui est différent d'une frame à l'autre; toutes les actualisations se font ici
@@ -105,7 +106,7 @@ class Simulation:
         couleur_texte = (255, 255, 255)
         police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
         # Création de l'objet texte
-        texte_generation = police.render("nombre naissance: {}".format(stats.births), True, couleur_texte)
+        texte_generation = police.render("nombre naissances: {}".format(stats.births), True, couleur_texte)
         position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.35*constantes.HAUTEUR_SETTINGS))
         fenetre.blit(texte_generation, position_texte)
 
@@ -114,7 +115,7 @@ class Simulation:
         couleur_texte = (255, 255, 255)
         police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
         # Création de l'objet texte
-        texte_generation = police.render("nombre de mort: {}".format(stats.nb_individus_dead), True, couleur_texte)
+        texte_generation = police.render("nombre de morts: {}".format(stats.nb_individus_dead), True, couleur_texte)
         position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.45*constantes.HAUTEUR_SETTINGS))
         fenetre.blit(texte_generation, position_texte)
 
@@ -202,7 +203,7 @@ class Simulation:
     # Toute les étapes qui doivent se dérouler après une génération ainsi que le lancement de la suivante
     def Nouveau_tour(self, facteur_food):
         queue.nb_individus = 0
-        stats.generation += 1
+        
         stats.individus_moyenne_size = stats.moyenne_size()
         stats.individus_moyenne_view = stats.moyenne_view()
         stats.individus_moyenne_speed = stats.moyenne_speed() 
@@ -217,16 +218,14 @@ class Simulation:
                 queue.liste_individus.remove(individu)
                 stats.nb_individus_dead+=1
                 stats.nb_individus_dead_total+=1
-
-        nb_indiv_alive = len(queue.liste_individus) # Compteur des individus vivants après la génération
+        
+        stats.nb_individus_alive=len(queue.liste_individus)
         
         # On regénère des individus
         for individu in queue.liste_individus:
             if individu.food >= 2:
                 queue.liste_individus.append(Creature(stats.generation))
                 stats.births += 1
-
-        stats.nb_individus_alive=len(queue.liste_individus)
         
         if stats.nb_individus_alive == 0:
             stats.individus_moyenne_size = 0
@@ -240,13 +239,15 @@ class Simulation:
             stats.individus_moyenne_speed = stats.moyenne_speed()
             export.export()
         
+        stats.generation += 1
+        
         # On remet leur niveau de nourriture à 0 et on reactualise la valeur qui contient le nb d'individus
         for individu in queue.liste_individus:
             individu.food = 0
             queue.nb_individus += 1
         
         # On regénère de la nourriture en fonction du nb d'individus vivants et du facteur        
-        for e in range(int((facteur_food*nb_indiv_alive)/100)): 
+        for e in range(int((facteur_food*stats.nb_individus_alive)/100)): 
                 e = Food()
                 queue.liste_food.append(e)
 

@@ -10,8 +10,7 @@ nb_individus_dead_total = 0 #Nombre d'individue mort depuis le début de la simu
 individus_moyenne_size = 0
 individus_moyenne_view = 0
 individus_moyenne_speed = 0
-
-        
+   
 def moyenne_size():
     count = 0
     sum = 0

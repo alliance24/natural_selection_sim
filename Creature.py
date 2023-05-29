@@ -21,7 +21,6 @@ class Creature(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(pygame.image.load("assets/rubiks.png"), (self.new_size, self.new_size))
         self.rect = self.image.get_rect()
         
-        
         self.max_x = int(constantes.LARGEUR_GENERAL - self.new_size) # Détermine la position x maximale pour rester dans la surface
         self.max_y = int(constantes.HAUTEUR_GENERAL - self.new_size) # Détermine la position y maximale pour rester dans la surface
         self.x = random.randint(self.new_size, self.max_x) # Donne une position en x qui se place dans la surface
@@ -29,7 +28,6 @@ class Creature(pygame.sprite.Sprite):
         
         self.direction_x = random.choice([-1, 0, 1]) # Déplacement aléatoire en x soit en positif, soit en négatif, soit a l'arrêt
         self.direction_y = random.choice([-1, 0, 1]) # De même en y 
-    
         
     def eat(self, x_food, y_food): # self --> creature | dimension (x,y) --> nourriture 
         if (x_food <= self.x + self.new_size and x_food >= self.x) and (y_food <= self.y + self.new_size and y_food >= self.y):
@@ -37,7 +35,6 @@ class Creature(pygame.sprite.Sprite):
             return True
         else:
             return False
-
         
     # Déplacement: 
     def view_food(self): # Détermine si autour de la créature une nouriture est présente
@@ -45,7 +42,6 @@ class Creature(pygame.sprite.Sprite):
             if food.eat == False: # Si la nouriture n'a pas été mangé on regarde la distance euclidienne avec la créature 
                 if ((food.x - self.x) ** 2 + (food.y - self.y) ** 2) ** 0.5 <= self.view:
                     return True, food.x, food.y # On renvoie aussi les coordonnées de la nourriture pour en faire une target
-
 
     def move (self):
 
@@ -112,7 +108,6 @@ class Creature(pygame.sprite.Sprite):
             
         self.last_x = self.x
         self.last_y = self.y
-    
     
     def Clear(self):
         surface = pygame.Surface(self.image.get_size())

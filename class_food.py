@@ -1,6 +1,7 @@
 import pygame, random, constantes
 
 class Food():
+    
     def __init__(self):
         self.image = pygame.transform.scale(pygame.image.load("assets/Rond_rouge.png"), (constantes.TAILLE_FOOD, constantes.TAILLE_FOOD))
         self.rect = self.image.get_rect()
@@ -16,7 +17,6 @@ class Food():
     def get_y(self):
         return self.y + constantes.TAILLE_FOOD
     
-
     def Clear(self):
         surface = pygame.Surface(self.image.get_size())
         surface.fill("white")

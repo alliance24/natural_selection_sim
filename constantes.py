@@ -40,7 +40,6 @@ LARGEUR_BOUTON_PLUS = 25
 HAUTEUR_BOUTON_PLUS = 25
 # ---------------------------------------------------------------------------------------------------------
 
-
 # Positions relatives des boutons
 
 # ---------------------------------------------------------------------------------------------------------
@@ -49,7 +48,6 @@ HAUTEUR_BOUTON_PLUS = 25
 # x par rapport à la fenêtre: x surface_settings + x par rapport aux settings
 x_bouton_start_settings = ((largeur-hauteur*1.01)-LARGEUR_BOUTON_START)/2
 x_bouton_start_fenetre = X_SETTINGS + x_bouton_start_settings
-
 
 # y par rapport aux settings: ((0.48*hauteur_fenetre)*0.9)-hauteur_bouton
 # y par rapport à la fenêtre: y surface_settings + y par rapport aux settings
@@ -63,7 +61,6 @@ y_bouton_start_fenetre = Y_SETTINGS + y_bouton_start_settings
 x_bouton_moins_individus_settings = (0.1*HAUTEUR_SETTINGS)
 x_bouton_moins_individus_fenetre = X_SETTINGS + x_bouton_moins_individus_settings
 
-
 # y par rapport aux settings: ((0.48*hauteur_fenetre)*0.9)-hauteur_bouton
 # y par rapport à la fenêtre: y surface_settings + y par rapport aux settings
 y_bouton_moins_individus_settings = (0.075*LARGEUR_SETTINGS)
@@ -75,7 +72,6 @@ y_bouton_moins_individus_fenetre = Y_SETTINGS + y_bouton_moins_individus_setting
 # x par rapport à la fenêtre: x surface_settings + x par rapport aux settings
 x_bouton_plus_individus_settings = x_bouton_moins_individus_settings*2 + LARGEUR_BOUTON_PLUS
 x_bouton_plus_individus_fenetre = X_SETTINGS + x_bouton_plus_individus_settings
-
 
 # y par rapport aux settings: ((0.48*hauteur_fenetre)*0.9)-hauteur_bouton
 # y par rapport à la fenêtre: y surface_settings + y par rapport aux settings
@@ -89,7 +85,6 @@ y_bouton_plus_individus_fenetre = Y_SETTINGS + y_bouton_plus_individus_settings
 x_bouton_moins_food_settings = (0.1*HAUTEUR_SETTINGS)
 x_bouton_moins_food_fenetre = X_SETTINGS + x_bouton_moins_food_settings
 
-
 # y par rapport aux settings:
 # y par rapport à la fenêtre:
 y_bouton_moins_food_settings = (0.175*LARGEUR_SETTINGS)
@@ -101,7 +96,6 @@ y_bouton_moins_food_fenetre = Y_SETTINGS + y_bouton_moins_food_settings
 # x par rapport à la fenêtre:
 x_bouton_plus_food_settings = x_bouton_moins_food_settings*2 + LARGEUR_BOUTON_MOINS
 x_bouton_plus_food_fenetre = X_SETTINGS + x_bouton_plus_food_settings
-
 
 # y par rapport aux settings:
 # y par rapport à la fenêtre:
@@ -115,8 +109,6 @@ y_bouton_plus_food_fenetre = Y_SETTINGS + y_bouton_plus_food_settings
 x_bouton_moins_time_settings = (0.4*LARGEUR_SETTINGS)
 x_bouton_moins_time_fenetre = X_SETTINGS + x_bouton_moins_time_settings
 
-
-
 # y par rapport aux settings:
 # y par rapport à la fenêtre:
 y_bouton_moins_time_settings = (0.075*LARGEUR_SETTINGS)
@@ -128,8 +120,6 @@ y_bouton_moins_time_fenetre = Y_SETTINGS + y_bouton_moins_time_settings
 # x par rapport à la fenêtre:
 x_bouton_plus_time_settings = (0.55*LARGEUR_SETTINGS)
 x_bouton_plus_time_fenetre = X_SETTINGS + x_bouton_plus_time_settings
-
-
 
 # y par rapport aux settings:
 # y par rapport à la fenêtre:
