@@ -15,6 +15,8 @@ class Button():
             self.image = pygame.transform.scale(pygame.image.load(chemin_image), (constantes.LARGEUR_BOUTON_PLUS, constantes.HAUTEUR_BOUTON_PLUS))
         elif chemin_image == "assets/moins_bouton.png":
             self.image = pygame.transform.scale(pygame.image.load(chemin_image), (constantes.LARGEUR_BOUTON_MOINS, constantes.HAUTEUR_BOUTON_MOINS))
+        elif chemin_image =="assets/bouton_clear.png":
+            self.image = pygame.transform.scale(pygame.image.load(chemin_image), (constantes.LARGEUR_BOUTON_CLEAR, constantes.HAUTEUR_BOUTON_CLEAR))
         
         self.rect = self.image.get_rect()
     
@@ -94,6 +96,15 @@ def texte_facteur_food(fenetre):
     # Création de l'objet texte
     texte_generation = police.render("facteur food: {} ".format(queue.facteur_food), True, couleur_texte)
     position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.2*constantes.HAUTEUR_SETTINGS ))
+    fenetre.blit(texte_generation, position_texte)
+
+def texte_tableur(fenetre):
+    # Couleur du texte (blanc)
+    couleur_texte = (255, 255, 255)
+    police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
+    # Création de l'objet texte
+    texte_generation = police.render("tableur:", True, couleur_texte)
+    position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.4*constantes.HAUTEUR_SETTINGS ))
     fenetre.blit(texte_generation, position_texte)
 
 def texte_time_generation(fenetre):
@@ -213,9 +224,13 @@ def ecran_avant_début(fenetre):
     image = pygame.transform.scale(pygame.image.load("assets/plus_bouton.png"), (constantes.LARGEUR_BOUTON_PLUS, constantes.HAUTEUR_BOUTON_PLUS))
     surface_settings.blit(image, (constantes.x_bouton_plus_time_settings, constantes.y_bouton_plus_time_settings))
 
+    image = pygame.transform.scale(pygame.image.load("assets/bouton_clear.png"), (constantes.LARGEUR_BOUTON_CLEAR, constantes.HAUTEUR_BOUTON_CLEAR))
+    surface_settings.blit(image, (constantes.x_bouton_start_settings, constantes.y_bouton_start_settings))
+
     texte_generation(surface_stats)
     texte_nb_individus(surface_settings)
     texte_facteur_food(surface_settings)
+    texte_tableur(surface_settings)
     texte_time_generation(surface_settings)
     texte_timer(surface_settings)
     texte_moyenne_size(surface_stats)

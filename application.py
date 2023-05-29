@@ -26,7 +26,7 @@ class App:
         self.bouton_moins_food = UI.Button(constantes.x_bouton_moins_food_settings, constantes.y_bouton_moins_food_settings,"assets/moins_bouton.png")
         self.bouton_plus_food = UI.Button(constantes.x_bouton_plus_food_settings, constantes.y_bouton_plus_food_settings,"assets/plus_bouton.png")
         self.bouton_moins_time = UI.Button(constantes.x_bouton_moins_time_settings, constantes.y_bouton_moins_time_settings,"assets/moins_bouton.png")
-
+        self.bouton_clear = UI.Button(constantes.x_bouton_start_settings, constantes.y_bouton_start_settings, "assets/bouton_clear.png")
     # Boucle principale du programme
     def main(self) -> None:
         

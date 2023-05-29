@@ -39,6 +39,11 @@ HAUTEUR_BOUTON_MOINS = 25
 LARGEUR_BOUTON_PLUS = 25
 HAUTEUR_BOUTON_PLUS = 25
 # ---------------------------------------------------------------------------------------------------------
+LARGEUR_BOUTON_CLEAR = 80
+HAUTEUR_BOUTON_CLEAR = 40
+# ---------------------------------------------------------------------------------------------------------
+
+
 
 # Positions relatives des boutons
 

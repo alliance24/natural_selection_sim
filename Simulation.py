@@ -74,6 +74,15 @@ class Simulation:
         position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.2*constantes.HAUTEUR_SETTINGS ))
         fenetre.blit(texte_generation, position_texte)
 
+    def texte_tableur(self,fenetre):
+        # Couleur du texte (blanc)
+        couleur_texte = (255, 255, 255)
+        police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
+        # Création de l'objet texte
+        texte_generation = police.render("tableur:", True, couleur_texte)
+        position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.4*constantes.HAUTEUR_SETTINGS ))
+        fenetre.blit(texte_generation, position_texte)
+
     def texte_time_generation(self,fenetre):
         # Couleur du texte (blanc)
         couleur_texte = (255, 255, 255)
@@ -186,6 +195,7 @@ class Simulation:
         self.texte_generation(self.surface_stats)
         self.texte_nb_individus(self.surface_settings)
         self.texte_facteur_food(self.surface_settings)
+        self.texte_tableur(self.surface_settings)
         self.texte_time_generation(self.surface_settings)
         self.texte_moyenne_size(self.surface_stats)
         self.texte_moyenne_view(self.surface_stats)
