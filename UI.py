@@ -47,6 +47,9 @@ def check_souris(bouton):
     elif bouton == "bouton_plus_time":
         if (mouse[0] >= constantes.x_bouton_plus_time_fenetre and mouse[0] <= constantes.x_bouton_plus_time_fenetre + constantes.LARGEUR_BOUTON_PLUS) and (mouse[1] >= constantes.y_bouton_plus_time_fenetre and mouse[1] <= constantes.y_bouton_plus_time_fenetre + constantes.HAUTEUR_BOUTON_PLUS):
             return True
+    elif bouton == "bouton_clear":
+        if (mouse[0] >= constantes.x_bouton_clear_fenetre and mouse[0] <= constantes.x_bouton_clear_fenetre + constantes.LARGEUR_BOUTON_CLEAR) and (mouse[1] >= constantes.y_bouton_clear_fenetre and mouse[1] <= constantes.y_bouton_clear_fenetre + constantes.HAUTEUR_BOUTON_CLEAR):
+            return True
     else:
         return False
             
@@ -225,7 +228,7 @@ def ecran_avant_début(fenetre):
     surface_settings.blit(image, (constantes.x_bouton_plus_time_settings, constantes.y_bouton_plus_time_settings))
 
     image = pygame.transform.scale(pygame.image.load("assets/bouton_clear.png"), (constantes.LARGEUR_BOUTON_CLEAR, constantes.HAUTEUR_BOUTON_CLEAR))
-    surface_settings.blit(image, (constantes.x_bouton_start_settings, constantes.y_bouton_start_settings))
+    surface_settings.blit(image, (constantes.x_bouton_clear_settings, constantes.y_bouton_clear_settings))
 
     texte_generation(surface_stats)
     texte_nb_individus(surface_settings)

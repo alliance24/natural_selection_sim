@@ -3,15 +3,15 @@ import stats, os
 # os.chdir("natural_selection_sim-main/")
 
 def clear(): # Vide le fichier excel
-    os.remove("simulations.xlsx")
-    wb = openpyxl.Workbook()
-    ws = wb.active
-    ws.title = "simulations.xlsx"
-    wb.save("simulations.xlsx")
+    workbook = openpyxl.load_workbook("simulations.xlsx")
+    for e in workbook:
+        workbook.remove(e)
+    workbook.create_sheet(title='simulation')
+    workbook.save("simulations.xlsx")
 
 def create_sheet():
     workbook = openpyxl.load_workbook("simulations.xlsx")
-    workbook.create_sheet(title='Simulation')
+    workbook.create_sheet(title='simulation')
     workbook.save("simulations.xlsx")
 
 def load_and_write():

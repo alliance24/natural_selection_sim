@@ -130,3 +130,15 @@ x_bouton_plus_time_fenetre = X_SETTINGS + x_bouton_plus_time_settings
 # y par rapport à la fenêtre:
 y_bouton_plus_time_settings = (0.075*LARGEUR_SETTINGS)
 y_bouton_plus_time_fenetre = Y_SETTINGS + y_bouton_plus_time_settings
+
+# ---------------------------------------------------------------------------------------------------------
+#bouton clear
+# x par rapport aux settings:
+# x par rapport à la fenêtre:
+x_bouton_clear_settings = (0.18*LARGEUR_SETTINGS)
+x_bouton_clear_fenetre = X_SETTINGS + x_bouton_clear_settings
+
+# y par rapport aux settings:
+# y par rapport à la fenêtre:
+y_bouton_clear_settings = (0.38*HAUTEUR_SETTINGS )
+y_bouton_clear_fenetre = Y_SETTINGS + y_bouton_clear_settings

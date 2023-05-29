@@ -26,9 +26,13 @@ class App:
         self.bouton_moins_food = UI.Button(constantes.x_bouton_moins_food_settings, constantes.y_bouton_moins_food_settings,"assets/moins_bouton.png")
         self.bouton_plus_food = UI.Button(constantes.x_bouton_plus_food_settings, constantes.y_bouton_plus_food_settings,"assets/plus_bouton.png")
         self.bouton_moins_time = UI.Button(constantes.x_bouton_moins_time_settings, constantes.y_bouton_moins_time_settings,"assets/moins_bouton.png")
-        self.bouton_clear = UI.Button(constantes.x_bouton_start_settings, constantes.y_bouton_start_settings, "assets/bouton_clear.png")
+        self.bouton_clear = UI.Button(constantes.x_bouton_clear_settings, constantes.y_bouton_clear_settings, "assets/bouton_clear.png")
     # Boucle principale du programme
     def main(self) -> None:
+        
+        while self.pause == True:
+            self.Demande_Evenements()
+            UI.ecran_avant_début(self.screen)
         
         # Prépare pour l'export des statistiques
         if supp == "y":
@@ -37,10 +41,6 @@ class App:
             export.create_sheet()
         export.load_and_write()
         
-        while self.pause == True:
-            self.Demande_Evenements()
-            UI.ecran_avant_début(self.screen)
-
         stats.nb_individus_start = queue.nb_individus
         self.simulation = Simulation(queue.nb_individus, queue.facteur_food)
         queue.timer = queue.time_generation
@@ -126,6 +126,8 @@ class App:
                     queue.time_generation -=1   
             if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_plus_time"):
                 queue.time_generation +=1
+            if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_clear"):
+                supp == "y"
             # Si l'utilisateur appuie sur la touche p, met la simualtion en pause
             if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
                 self.pause = not self.pause
@@ -141,10 +143,6 @@ class App:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 pygame.quit() 
 
-supp = ""
-while True:
-    supp = input("Souhaitez-vous vider la feuille de calcul ? (y ou n)\n")  
-    if supp == "y" or supp == "n":
-        break     
+supp = ""   
 run = App()
 run.main()

@@ -79,7 +79,7 @@ class Creature(pygame.sprite.Sprite):
 
         # Si il n'y a pas de nouriture proche il continu a se déplacé
         else:
-            if random.random() <= luck / 100:
+            if random.random(0,100) <= luck / 100:
                 self.direction_x = random.choice([-1, 0, 1])
                 self.direction_y = random.choice([-1, 0, 1])
 
@@ -105,9 +105,6 @@ class Creature(pygame.sprite.Sprite):
             self.y = self.new_size
         elif self.y > self.max_y:
             self.y = self.max_y - self.new_size
-            
-        self.last_x = self.x
-        self.last_y = self.y
     
     def Clear(self):
         surface = pygame.Surface(self.image.get_size())
