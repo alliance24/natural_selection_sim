@@ -8,18 +8,21 @@ class Simulation:
     
     def __init__(self, nb_creature, facteur_food):
         stats.generation = 1 # Numéro de tour (commence donc à 1)
-        self.facteur_food = facteur_food
+        self.facteur_food = facteur_food # Facteur de nourriture
         
+        # On crée les individus pour la première fois
         for individu in range(nb_creature):
             individu = Creature(stats.generation)
             queue.liste_individus.append(individu)
         
+        # On crée la nourriture pour la première fois
         for e in range(int((self.facteur_food*nb_creature)/100)):
                 e = Food()
                 queue.liste_food.append(e)
-        
+    
+     # Ce qui est différent d'une frame à l'autre; toutes les actualisations se font ici  
     def Mise_A_Jour(self):
-        # Ce qui est différent d'une frame à l'autre; toutes les actualisations se font ici
+        # On gère le déplacement et si la nourriture est mangée ou non
         for individu in queue.liste_individus:
             if individu.alive == True:
                 individu.move()
@@ -223,11 +226,7 @@ class Simulation:
     
     # Toute les étapes qui doivent se dérouler après une génération ainsi que le lancement de la suivante
     def Nouveau_tour(self, facteur_food):
-        queue.nb_individus = 0
-        
-        stats.individus_moyenne_size = stats.moyenne_size()
-        stats.individus_moyenne_view = stats.moyenne_view()
-        stats.individus_moyenne_speed = stats.moyenne_speed() 
+        queue.nb_individus = 0 # On réinitialise le compteur d'individus
         queue.liste_food.clear() # On réinitialise la nourriture
         
         # On tue des individus
@@ -240,8 +239,6 @@ class Simulation:
                 stats.nb_individus_dead+=1
                 stats.nb_individus_dead_total+=1
         
-        
-        
         # On regénère des individus
         for individu in queue.liste_individus:
             if individu.food >= 2:
@@ -250,24 +247,26 @@ class Simulation:
         
         stats.nb_individus_alive=len(queue.liste_individus)
         
+        # Si il y n'y a plus d'individus, on défini les moyennes sur 0 pour éviter les divisions par 0 dans les méthodes (voir fonctions fichier stats)
         if stats.nb_individus_alive == 0:
             stats.individus_moyenne_size = 0
             stats.individus_moyenne_view = 0
             stats.individus_moyenne_speed = 0
-            export.export()
-            return False
-        else:
+            export.export() # Puis on exporte
+            return False # Return False pour indiquer dans fichier application que la simulation est terminée
+        else: # Sinon, on calcule les moyennes et on les exportent
             stats.individus_moyenne_size = stats.moyenne_size()
             stats.individus_moyenne_view = stats.moyenne_view()
             stats.individus_moyenne_speed = stats.moyenne_speed()
             export.export()
         
+        # On passe à une nouvelle génération
         stats.generation += 1
         
         # On remet leur niveau de nourriture à 0 et on reactualise la valeur qui contient le nb d'individus
         for individu in queue.liste_individus:
             individu.food = 0
-            queue.nb_individus += 1
+            queue.nb_individus += 1 # On profite de cette itération pour recompter les individus
         
         # On regénère de la nourriture en fonction du nb d'individus vivants et du facteur        
         for e in range(int((facteur_food*stats.nb_individus_alive)/100)): 

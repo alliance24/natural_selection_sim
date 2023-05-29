@@ -5,7 +5,6 @@ from Simulation import *
 class Button():
     
     def __init__(self, x, y, chemin_image):
-        self.etat_click = False
         self.x = x
         self.y = y
         
@@ -20,9 +19,11 @@ class Button():
         
         self.rect = self.image.get_rect()
     
+    # Affiche le bouton en question
     def Afficher(self, fenetre):
         fenetre.blit(self.image, (self.x, self.y))
 
+# Fonction qui vérifie si le clic est effectué sur le bouton passé en paramètre
 def check_souris(bouton):
     mouse = pygame.mouse.get_pos()
     # On cherche de quel bouton il s'agit
@@ -199,7 +200,8 @@ def texte_status(fenetre):
     texte_generation = police.render("statut simulation: {}".format(stats.statut), True, couleur_texte)
     position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.5*constantes.HAUTEUR_SETTINGS ))
     fenetre.blit(texte_generation, position_texte)
-       
+
+# Ecran affiché avant la création de l'objet simulation, permet donc l'affichage sans la fonction Afficher de l'objet simulation
 def ecran_avant_début(fenetre):
     # On commence par effacer l'écran de la frame précédante en coloriant l'écran
     fenetre.fill("white")
@@ -239,6 +241,7 @@ def ecran_avant_début(fenetre):
     image = pygame.transform.scale(pygame.image.load("assets/bouton_clear.png"), (constantes.LARGEUR_BOUTON_CLEAR, constantes.HAUTEUR_BOUTON_CLEAR))
     surface_settings.blit(image, (constantes.x_bouton_clear_settings, constantes.y_bouton_clear_settings))
 
+    # On appelle toutes ces fonctions pour les afficher sur l'écran
     texte_generation(surface_stats)
     texte_nb_individus(surface_settings)
     texte_facteur_food(surface_settings)

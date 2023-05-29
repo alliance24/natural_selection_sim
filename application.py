@@ -13,7 +13,7 @@ class App:
         self.lecture = True
         self.pause = True # Pour ne pas commencer tout de suite la simulation
         
-        #Initialisation de pygame et de la fenêtre
+        # Initialisation de pygame et de la fenêtre
         pygame.init()
         pygame.display.set_caption("Simulation de la vie")
         self.screen = pygame.display.set_mode((constantes.largeur, constantes.hauteur)) # On importe les valeurs récupérées dans le fichier constantes
