@@ -28,7 +28,9 @@ class App:
         self.bouton_moins_time = UI.Button(constantes.x_bouton_moins_time_settings, constantes.y_bouton_moins_time_settings,"assets/moins_bouton.png")
         self.bouton_clear = UI.Button(constantes.x_bouton_clear_settings, constantes.y_bouton_clear_settings, "assets/bouton_clear.png")
     # Boucle principale du programme
-    def main(self) -> None:
+    def main(self):
+        
+        global supp
         
         while self.pause == True:
             self.Demande_Evenements()
@@ -36,6 +38,7 @@ class App:
         
         # Prépare pour l'export des statistiques
         if supp == "y":
+            print("clear")
             export.clear()
         else:
             export.create_sheet()
@@ -95,6 +98,8 @@ class App:
     def Demande_Evenements(self) -> list:
         # Cette fonction vérifie si l'utilisateur veut fermer la fenêtre, et obtient la liste d'évenements qui sera transmise à la suite du programme
         
+        global supp
+        
         #rep est une liste d'évenements, à chaque frame pygame va y mettre toutes les interactions avec l'utilisateur
         rep:list = pygame.event.get()
 
@@ -127,7 +132,7 @@ class App:
             if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_plus_time"):
                 queue.time_generation +=1
             if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_clear"):
-                supp == "y"
+                supp = "y"
             # Si l'utilisateur appuie sur la touche p, met la simualtion en pause
             if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
                 self.pause = not self.pause
@@ -142,6 +147,7 @@ class App:
             # Si l'utilisateur appuie sur la touche ECHAP, quitte la simulation
             if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                 pygame.quit() 
+
 
 supp = ""   
 run = App()

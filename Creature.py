@@ -79,24 +79,14 @@ class Creature(pygame.sprite.Sprite):
 
         # Si il n'y a pas de nouriture proche il continu a se déplacé
         else:
-            if random.random(0,100) <= luck / 100:
+            if random.random() <= luck / 100:
                 self.direction_x = random.choice([-1, 0, 1])
                 self.direction_y = random.choice([-1, 0, 1])
 
             self.x += self.direction_x * int(self.speed * self.deplacement)
             self.y += self.direction_y * int(self.speed * self.deplacement)
-     
-        # Vérifier si l'image est sortie de la surface
-        if self.x < 0:
-            self.x = self.new_size
-        elif self.x > self.max_x:
-            self.x = self.max_x
-        if self.y < 0:
-            self.y = self.new_size
-        elif self.y > self.max_y:
-            self.y = self.max_y
 
-    # Vérifier les limites de la surface générale et empêcher les entitées de sortir
+        # Vérifier les limites de la surface générale et empêcher les entitées de sortir
         if self.x < self.new_size:
             self.x = self.new_size
         elif self.x > self.max_x:

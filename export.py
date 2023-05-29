@@ -1,12 +1,12 @@
 import openpyxl
-import stats, os
+import stats
 # os.chdir("natural_selection_sim-main/")
 
 def clear(): # Vide le fichier excel
     workbook = openpyxl.load_workbook("simulations.xlsx")
-    for e in workbook:
+    for e in workbook: # On supprime toutes les pages
         workbook.remove(e)
-    workbook.create_sheet(title='simulation')
+    workbook.create_sheet(title='simulation') # Recrée une page
     workbook.save("simulations.xlsx")
 
 def create_sheet():
