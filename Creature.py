@@ -86,6 +86,15 @@ class Creature(pygame.sprite.Sprite):
             self.x += self.direction_x * int(self.speed * self.deplacement)
             self.y += self.direction_y * int(self.speed * self.deplacement)
 
+        if self.x < 0:
+            self.x = self.new_size
+        elif self.x > self.max_x:
+            self.x = self.max_x
+        if self.y < 0:
+            self.y = self.new_size
+        elif self.y > self.max_y:
+            self.y = self.max_y
+
         # Vérifier les limites de la surface générale et empêcher les entitées de sortir
         if self.x < self.new_size:
             self.x = self.new_size
@@ -95,6 +104,8 @@ class Creature(pygame.sprite.Sprite):
             self.y = self.new_size
         elif self.y > self.max_y:
             self.y = self.max_y - self.new_size
+            
+        
     
     def Clear(self):
         surface = pygame.Surface(self.image.get_size())

@@ -23,3 +23,5 @@ Liste choses à faires:
 - panneau de fin
 - potentiellement exporter excel
 
+x nb general
+y 

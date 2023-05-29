@@ -1,5 +1,7 @@
 import queue
 
+statut = "Réglages" # Réglages, En cours, Terminé
+
 generation = 0
 nb_individus_start = 0 #nombre d'individu au tout début de la simulation 
 births = 0 #nombre de naissance sur le nouveau tour 

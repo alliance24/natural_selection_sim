@@ -1,12 +1,13 @@
 import os
 os.chdir("natural_selection_sim-main/")
 import pygame, constantes, UI, queue, stats, export
+from plyer import notification
 from Simulation import *
 
 
 class App:
     
-    def __init__(self) -> None:
+    def __init__(self):
         # On va faire 20 frames à chaque seconde (20 FPS), donc la boucle principale est répétée 20 fois à chaque seconde
         self.FPS = 20 # 20 fps recommandé
         self.lecture = True
@@ -20,13 +21,14 @@ class App:
         self.chrono = pygame.time.Clock()
 
         # Création des boutons
-        self.bouton_start = UI.Button(constantes.x_bouton_start_settings, constantes.y_bouton_start_settings, "assets/start_bouton_troll.png")
+        self.bouton_start = UI.Button(constantes.x_bouton_start_settings, constantes.y_bouton_start_settings, "assets/start_bouton.png")
         self.bouton_plus_individus = UI.Button(constantes.x_bouton_plus_individus_settings, constantes.y_bouton_plus_individus_settings, "assets/plus_bouton.png")
         self.bouton_moins_individus = UI.Button(constantes.x_bouton_moins_individus_settings, constantes.y_bouton_moins_individus_settings, "assets/moins_bouton.png")
         self.bouton_moins_food = UI.Button(constantes.x_bouton_moins_food_settings, constantes.y_bouton_moins_food_settings,"assets/moins_bouton.png")
         self.bouton_plus_food = UI.Button(constantes.x_bouton_plus_food_settings, constantes.y_bouton_plus_food_settings,"assets/plus_bouton.png")
         self.bouton_moins_time = UI.Button(constantes.x_bouton_moins_time_settings, constantes.y_bouton_moins_time_settings,"assets/moins_bouton.png")
         self.bouton_clear = UI.Button(constantes.x_bouton_clear_settings, constantes.y_bouton_clear_settings, "assets/bouton_clear.png")
+        
     # Boucle principale du programme
     def main(self):
         
@@ -38,12 +40,12 @@ class App:
         
         # Prépare pour l'export des statistiques
         if supp == "y":
-            print("clear")
             export.clear()
         else:
             export.create_sheet()
         export.load_and_write()
         
+        stats.statut = "En cours"
         stats.nb_individus_start = queue.nb_individus
         self.simulation = Simulation(queue.nb_individus, queue.facteur_food)
         queue.timer = queue.time_generation
@@ -87,15 +89,23 @@ class App:
                 # C'est une boucle for-else, ce else se déclenche uniquement si aucun "break" n'a été déclenché
                 # Après 15 secondes, on démarre un nouveau tour, naissances, morts, apparition de nourriture
                 if self.simulation.Nouveau_tour(queue.facteur_food) == False:
+                    stats.statut = "Terminé"
+                    # export.graph()
+                    notification.notify( # Notification windows
+                        title='Simulation',
+                        message='Fin de la simulation',
+                        timeout=10 
+                        )
+
                     while True:
                         self.Demande_Evenements_END()
-                        self.screen.fill("black")
+                        self.simulation.Afficher(self.screen)
                         pygame.display.flip()           
 
         # On arrive ici uniquement si l'utilisateur souhaite quitter le programme, donc on ferme pygame
         pygame.quit()
 
-    def Demande_Evenements(self) -> list:
+    def Demande_Evenements(self):
         # Cette fonction vérifie si l'utilisateur veut fermer la fenêtre, et obtient la liste d'évenements qui sera transmise à la suite du programme
         
         global supp

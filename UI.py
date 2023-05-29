@@ -9,7 +9,7 @@ class Button():
         self.x = x
         self.y = y
         
-        if chemin_image == "assets/start_bouton_troll.png":
+        if chemin_image == "assets/start_bouton.png":
             self.image = pygame.transform.scale(pygame.image.load(chemin_image), (constantes.LARGEUR_BOUTON_START, constantes.HAUTEUR_BOUTON_START))
         elif chemin_image == "assets/plus_bouton.png":
             self.image = pygame.transform.scale(pygame.image.load(chemin_image), (constantes.LARGEUR_BOUTON_PLUS, constantes.HAUTEUR_BOUTON_PLUS))
@@ -160,7 +160,7 @@ def texte_individu_dead_total(fenetre):
     couleur_texte = (255, 255, 255)
     police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
     # Création de l'objet texte
-    texte_generation = police.render("nombre individus mort total: {}".format(stats.nb_individus_dead_total), True, couleur_texte)
+    texte_generation = police.render("nombre individus morts total: {}".format(stats.nb_individus_dead_total), True, couleur_texte)
     position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.55*constantes.HAUTEUR_SETTINGS))
     fenetre.blit(texte_generation, position_texte)
 
@@ -190,6 +190,15 @@ def texte_moyenne_speed(fenetre):
     texte_generation = police.render("moyenne speed individus: {}".format(stats.individus_moyenne_speed), True, couleur_texte)
     position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.85*constantes.HAUTEUR_SETTINGS))
     fenetre.blit(texte_generation, position_texte)
+    
+def texte_status(fenetre):
+    # Couleur du texte (blanc)
+    couleur_texte = (255, 255, 255)
+    police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
+    # Création de l'objet texte
+    texte_generation = police.render("statut simulation: {}".format(stats.statut), True, couleur_texte)
+    position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.5*constantes.HAUTEUR_SETTINGS ))
+    fenetre.blit(texte_generation, position_texte)
        
 def ecran_avant_début(fenetre):
     # On commence par effacer l'écran de la frame précédante en coloriant l'écran
@@ -206,7 +215,7 @@ def ecran_avant_début(fenetre):
     surface_settings.fill("blue")  # couleur bleu 
 
     # Affichage des boutons
-    image = pygame.transform.scale(pygame.image.load("assets/start_bouton_troll.png"), (constantes.LARGEUR_BOUTON_START, constantes.HAUTEUR_BOUTON_START))
+    image = pygame.transform.scale(pygame.image.load("assets/start_bouton.png"), (constantes.LARGEUR_BOUTON_START, constantes.HAUTEUR_BOUTON_START))
     surface_settings.blit(image, (constantes.x_bouton_start_settings, constantes.y_bouton_start_settings))
 
     image = pygame.transform.scale(pygame.image.load("assets/moins_bouton.png"), (constantes.LARGEUR_BOUTON_MOINS, constantes.HAUTEUR_BOUTON_MOINS))
@@ -244,6 +253,7 @@ def ecran_avant_début(fenetre):
     texte_birth(surface_stats)
     texte_individus_dead(surface_stats)
     texte_individu_dead_total(surface_stats)
+    texte_status(surface_settings)
 
     # On injecte les surfaces sur l'écran
     fenetre.blit(surface_general, (constantes.X_GENERAL, constantes.Y_GENERAL)) # coordonnées (x, y)

@@ -18,7 +18,7 @@ class Simulation:
                 e = Food()
                 queue.liste_food.append(e)
         
-    def Mise_A_Jour(self) -> None:
+    def Mise_A_Jour(self):
         # Ce qui est différent d'une frame à l'autre; toutes les actualisations se font ici
         for individu in queue.liste_individus:
             if individu.alive == True:
@@ -65,7 +65,7 @@ class Simulation:
         position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.05*constantes.HAUTEUR_SETTINGS))
         fenetre.blit(texte_generation, position_texte)
     
-    def texte_facteur_food(self,fenetre):
+    def texte_facteur_food(self, fenetre):
         # Couleur du texte (blanc)
         couleur_texte = (255, 255, 255)
         police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
@@ -74,7 +74,7 @@ class Simulation:
         position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.2*constantes.HAUTEUR_SETTINGS ))
         fenetre.blit(texte_generation, position_texte)
 
-    def texte_tableur(self,fenetre):
+    def texte_tableur(self, fenetre):
         # Couleur du texte (blanc)
         couleur_texte = (255, 255, 255)
         police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
@@ -83,7 +83,7 @@ class Simulation:
         position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.4*constantes.HAUTEUR_SETTINGS ))
         fenetre.blit(texte_generation, position_texte)
 
-    def texte_time_generation(self,fenetre):
+    def texte_time_generation(self, fenetre):
         # Couleur du texte (blanc)
         couleur_texte = (255, 255, 255)
         police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
@@ -92,7 +92,7 @@ class Simulation:
         position_texte = ((0.35*constantes.LARGEUR_SETTINGS), (0.05*constantes.HAUTEUR_SETTINGS))
         fenetre.blit(texte_generation, position_texte)
 
-    def texte_individus_start(self,fenetre):
+    def texte_individus_start(self, fenetre):
         # Couleur du texte (blanc)
         couleur_texte = (255, 255, 255)
         police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
@@ -101,7 +101,7 @@ class Simulation:
         position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.15*constantes.HAUTEUR_SETTINGS))
         fenetre.blit(texte_generation, position_texte)
 
-    def texte_individus_alive(self,fenetre):
+    def texte_individus_alive(self, fenetre):
         # Couleur du texte (blanc)
         couleur_texte = (255, 255, 255)
         police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
@@ -110,7 +110,7 @@ class Simulation:
         position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.25*constantes.HAUTEUR_SETTINGS))
         fenetre.blit(texte_generation, position_texte)
 
-    def texte_birth(self,fenetre):
+    def texte_birth(self, fenetre):
         # Couleur du texte (blanc)
         couleur_texte = (255, 255, 255)
         police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
@@ -119,7 +119,7 @@ class Simulation:
         position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.35*constantes.HAUTEUR_SETTINGS))
         fenetre.blit(texte_generation, position_texte)
 
-    def texte_individus_dead(self,fenetre):
+    def texte_individus_dead(self, fenetre):
         # Couleur du texte (blanc)
         couleur_texte = (255, 255, 255)
         police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
@@ -128,16 +128,16 @@ class Simulation:
         position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.45*constantes.HAUTEUR_SETTINGS))
         fenetre.blit(texte_generation, position_texte)
 
-    def texte_individu_dead_total(self,fenetre):
+    def texte_individu_dead_total(self, fenetre):
         # Couleur du texte (blanc)
         couleur_texte = (255, 255, 255)
         police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
         # Création de l'objet texte
-        texte_generation = police.render("nombre individus mort total: {}".format(stats.nb_individus_dead_total), True, couleur_texte)
+        texte_generation = police.render("nombre individus morts total: {}".format(stats.nb_individus_dead_total), True, couleur_texte)
         position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.55*constantes.HAUTEUR_SETTINGS))
         fenetre.blit(texte_generation, position_texte)
 
-    def texte_moyenne_size(self,fenetre):
+    def texte_moyenne_size(self, fenetre):
         # Couleur du texte (blanc)
         couleur_texte = (255, 255, 255)
         police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
@@ -146,7 +146,7 @@ class Simulation:
         position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.65*constantes.HAUTEUR_SETTINGS))
         fenetre.blit(texte_generation, position_texte)
 
-    def texte_moyenne_view(self,fenetre):
+    def texte_moyenne_view(self, fenetre):
         # Couleur du texte (blanc)
         couleur_texte = (255, 255, 255)
         police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
@@ -155,7 +155,7 @@ class Simulation:
         position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.75*constantes.HAUTEUR_SETTINGS))
         fenetre.blit(texte_generation, position_texte)
 
-    def texte_moyenne_speed(self,fenetre):
+    def texte_moyenne_speed(self, fenetre):
         # Couleur du texte (blanc)
         couleur_texte = (255, 255, 255)
         police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
@@ -163,9 +163,18 @@ class Simulation:
         texte_generation = police.render("moyenne speed individus: {}".format(stats.individus_moyenne_speed), True, couleur_texte)
         position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.85*constantes.HAUTEUR_SETTINGS))
         fenetre.blit(texte_generation, position_texte)
+        
+    def texte_status(self, fenetre):
+        # Couleur du texte (blanc)
+        couleur_texte = (255, 255, 255)
+        police = pygame.font.Font(None, constantes.POLICE_ECRITURE)  # None spécifie la police par défaut, 36 est la taille de la police
+        # Création de l'objet texte
+        texte_generation = police.render("statut simulation: {}".format(stats.statut), True, couleur_texte)
+        position_texte = ((0.05*constantes.LARGEUR_SETTINGS), (0.5*constantes.HAUTEUR_SETTINGS ))
+        fenetre.blit(texte_generation, position_texte)
 
     # Une fois que tous les calculs ont été faits dans la fonction Mise_A_Jour, on affiche tous les éléments
-    def Afficher(self, fenetre) -> None:
+    def Afficher(self, fenetre):
         
         # On commence par effacer l'écran de la frame précédante en coloriant l'écran
         fenetre.fill("white") 
@@ -195,7 +204,7 @@ class Simulation:
         self.texte_generation(self.surface_stats)
         self.texte_nb_individus(self.surface_settings)
         self.texte_facteur_food(self.surface_settings)
-        self.texte_tableur(self.surface_settings)
+        # self.texte_tableur(self.surface_settings) # Pas besoin
         self.texte_time_generation(self.surface_settings)
         self.texte_moyenne_size(self.surface_stats)
         self.texte_moyenne_view(self.surface_stats)
@@ -205,6 +214,8 @@ class Simulation:
         self.texte_birth(self.surface_stats)
         self.texte_individus_dead(self.surface_stats)
         self.texte_individu_dead_total(self.surface_stats)
+        self.texte_status(self.surface_settings)
+        
         # On injecte les surfaces sur l'écran
         fenetre.blit(self.surface_stats, (constantes.X_STATS, constantes.Y_STATS))    
         fenetre.blit(self.surface_general, (constantes.X_GENERAL, constantes.Y_GENERAL)) # coordonnées (x, y)
@@ -229,13 +240,15 @@ class Simulation:
                 stats.nb_individus_dead+=1
                 stats.nb_individus_dead_total+=1
         
-        stats.nb_individus_alive=len(queue.liste_individus)
+        
         
         # On regénère des individus
         for individu in queue.liste_individus:
             if individu.food >= 2:
                 queue.liste_individus.append(Creature(stats.generation))
                 stats.births += 1
+        
+        stats.nb_individus_alive=len(queue.liste_individus)
         
         if stats.nb_individus_alive == 0:
             stats.individus_moyenne_size = 0
