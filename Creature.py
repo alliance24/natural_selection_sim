@@ -12,11 +12,11 @@ class Creature(pygame.sprite.Sprite):
         self.generation = generation
     
         self.deplacement = random.randint(1, 15) # Variable qui donne le nombre de pixels parcouru à chaque déplacement
-        self.size = random.uniform(0.75, 1.25) # Facteur varaiation de taille, multiplié à une base de 18 pixels de hauteur/largeur
-        self.new_size = int(18*self.size) # Nouvelle taille
-        self.speed = random.uniform(1, 2.25)*(2-self.size)
+        self.factor_size = random.uniform(0.75, 1.25) # Facteur varaiation de taille, multiplié à une base de 18 pixels de hauteur/largeur
+        self.new_size = int(18*self.factor_size) # Nouvelle taille
+        self.speed = random.uniform(1, 2.25) * (2-self.factor_size)
         self.food = 0 # Niveau de nourriture initial de l'individu
-        self.view = random.randint(40, 90) # Capacitées optiques de l'individu
+        self.view = random.randint(40, 90) * self.factor_size # Capacitées optiques de l'individu
         
         self.image = pygame.transform.scale(pygame.image.load("assets/rubiks.png"), (self.new_size, self.new_size))
         self.rect = self.image.get_rect()
@@ -43,7 +43,7 @@ class Creature(pygame.sprite.Sprite):
     def view_food(self): # Détermine si autour de la créature une nouriture est présente
         for food in queue.liste_food:
             if food.eat == False: # Si la nouriture n'a pas été mangé on regarde la distance euclidienne avec la créature 
-                if ((food.x - self.x) ** 2 + (food.y - self.y) ** 2) ** 0.5 <= (self.size+self.view):
+                if ((food.x - self.x) ** 2 + (food.y - self.y) ** 2) ** 0.5 <= self.view:
                     return True, food.x, food.y # On renvoie aussi les coordonnées de la nourriture pour en faire une target
 
 

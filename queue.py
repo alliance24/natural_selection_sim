@@ -3,7 +3,7 @@ nb_individus = 20  # Nombre d'individu
 facteur_food = 150 # Facteur de nourriture
 time_generation = 15    # Durée d'une génération (par défaut sur 15s)
 timer = 15 # Timer de la génération, affiche les secondes en temps réel, par défaut sur 15
-nb_boucles = 20*time_generation # Permet de trouver le nombre de fois ou la boucle principale est jouée (20 car 20fps)
+nb_boucles = 20 * time_generation # Permet de trouver le nombre de fois ou la boucle principale est jouée (20 car 20fps)
 
 
 # Liste contenant l'ensemble des individus

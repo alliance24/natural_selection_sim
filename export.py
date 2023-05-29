@@ -1,14 +1,37 @@
-from openpyxl import Workbook, load_workbook
+import openpyxl
+import stats, os
+# os.chdir("natural_selection_sim-main/")
 
-wb = Workbook()
-ws = wb.active
-ws.title = "Simulation"
+def clear(): # Vide le fichier excel
+    workbook = openpyxl.Workbook()
+    for e in workbook.sheetnames:
+        del workbook[e]
+    sheet = workbook.create_sheet(title='Simulation')
+    workbook.save('simulations.xlsx')
 
+def create_sheet():
+    workbook = openpyxl.load_workbook("simulations.xlsx")
+    sheet = workbook.create_sheet(title='Simulation')
+    workbook.save
 
-ws.append(["Mail", "Nom", "Prenom", "Date de naissance", "Mot de passe"])
-wb.save("accounts.xlsx")
-print("100 %")
-print(f"Génération de comptes terminée...")
+def load_and_write():
+    workbook = openpyxl.load_workbook("simulations.xlsx")
+    # name_page = workbook.sheetnames[-1] # On récupère le nom de la dernière feuille
+    # ws = workbook[name_page] # On se place dans la feuille en question
+    ws = workbook.active
+    #ws.append(["Génération", "Nombre d'individus départ", "Nombre d'individus en vie", "Nombre de naissances", "Nombre de morts", "Moyenne taille individus", "Moyenne vue individus", "Moyenne vitesse individus", "Nombre de morts total", ])
+    # set value for cell A1=1
+    ws['A1'] = 1
+
+    # set value for cell B2=2
+    ws.cell(row=2, column=2).value = 2
+    workbook.save
 
 def export():
-    return
+    workbook = openpyxl.load_workbook("simulations.xlsx")
+    name_page = workbook.sheetnames[-1] # On récupère le nom de la dernière feuille
+    ws = workbook[name_page] # On se place dans la feuille en question
+    ws.append([stats.generation, stats.nb_individus_start, stats.nb_individus_alive, stats.births, stats.nb_individus_dead, stats.individus_moyenne_size, stats.individus_moyenne_view, stats.individus_moyenne_speed, stats.nb_individus_dead_total])
+    print([stats.generation, stats.nb_individus_start, stats.nb_individus_alive, stats.births, stats.nb_individus_dead, stats.individus_moyenne_size, stats.individus_moyenne_view, stats.individus_moyenne_speed, stats.nb_individus_dead_total])
+    workbook.save
+
