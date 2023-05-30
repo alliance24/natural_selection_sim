@@ -1,4 +1,4 @@
-import queue
+import stockage
 
 # statut de la simulation
 statut = "Réglages" # Réglages, En cours, Terminé
@@ -6,7 +6,7 @@ statut = "Réglages" # Réglages, En cours, Terminé
 generation = 0 # Numéro de la génération
 nb_individus_start = 0 # Nombre d'individus au tout début de la simulation 
 births = 0 # Nombre de naissances sur le nouveau tour 
-nb_individus_alive =len(queue.liste_individus) # Nombre d'individus qui ont survécu à la dernière génération
+nb_individus_alive =len(stockage.liste_individus) # Nombre d'individus qui ont survécu à la dernière génération
 nb_individus_dead = 0 # Nombre d'individu qui n'ont pas survécu à la dernière génération
 nb_individus_dead_total = 0 # Nombre d'individus morts depuis le début de la simulation 
 
@@ -19,7 +19,7 @@ individus_moyenne_speed = 0
 def moyenne_size():
     count = 0
     sum = 0
-    for individu in queue.liste_individus:
+    for individu in stockage.liste_individus:
         if individu.alive == True:
             count += 1
             sum += individu.new_size
@@ -28,7 +28,7 @@ def moyenne_size():
 def moyenne_view():
     count = 0
     sum = 0
-    for individu in queue.liste_individus:
+    for individu in stockage.liste_individus:
         if individu.alive == True:
             count += 1
             sum += individu.view
@@ -37,7 +37,7 @@ def moyenne_view():
 def moyenne_speed():
     count = 0
     sum = 0
-    for individu in queue.liste_individus:
+    for individu in stockage.liste_individus:
         if individu.alive == True:
             count += 1
             sum += individu.speed

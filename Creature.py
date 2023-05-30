@@ -1,4 +1,4 @@
-import pygame, constantes, random, queue
+import pygame, constantes, random, stockage
 
 # Création des entités
 
@@ -38,7 +38,7 @@ class Creature(pygame.sprite.Sprite):
         
     # Déplacement: 
     def view_food(self): # Détermine si autour de la créature une nouriture est présente
-        for food in queue.liste_food:
+        for food in stockage.liste_food:
             if food.eat == False: # Si la nouriture n'a pas été mangé on regarde la distance euclidienne avec la créature 
                 if ((food.x - self.x) ** 2 + (food.y - self.y) ** 2) ** 0.5 <= self.view:
                     return True, food.x, food.y # On renvoie aussi les coordonnées de la nourriture pour en faire une target

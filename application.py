@@ -1,6 +1,4 @@
-import os
-os.chdir("natural_selection_sim-main/")
-import pygame, constantes, UI, queue, stats, export
+import pygame, constantes, UI, stockage, stats, export
 from plyer import notification
 from Simulation import *
 
@@ -46,14 +44,14 @@ class App:
         export.load_and_write()
         
         stats.statut = "En cours"
-        stats.nb_individus_start = queue.nb_individus
-        self.simulation = Simulation(queue.nb_individus, queue.facteur_food)
-        queue.timer = queue.time_generation
+        stats.nb_individus_start = stockage.nb_individus
+        self.simulation = Simulation(stockage.nb_individus, stockage.facteur_food)
+        stockage.timer = stockage.time_generation
         
         # On fait n secondes par tours, 20 * n soit 20 * n boucles par tour, avant de passer à un nouveau tour         
         while self.lecture:
             
-            for _ in range(self.FPS * queue.time_generation): # Pour chaque frame d'un tour
+            for _ in range(self.FPS * stockage.time_generation): # Pour chaque frame d'un tour
 
                 while self.pause:
                     
@@ -71,9 +69,9 @@ class App:
                 # 2) On actualise la simulation et chaque individu
                 # 3) On affiche tous les éléments graphiques
                 
-                queue.nb_boucles-=1
-                if queue.nb_boucles %20 == 0: # Il y a 20 FPS pour n nombre de seconde donc on regarde si le nombre est multiple de 20 pour retirer 1 seconde au timer
-                    queue.timer-=1      
+                stockage.nb_boucles-=1
+                if stockage.nb_boucles %20 == 0: # Il y a 20 FPS pour n nombre de seconde donc on regarde si le nombre est multiple de 20 pour retirer 1 seconde au timer
+                    stockage.timer-=1      
                               
                 self.Demande_Evenements()
                 self.simulation.Mise_A_Jour()
@@ -85,10 +83,10 @@ class App:
                 # On limite le nombre d'itérations par seconde à 20 grâce à pygame
                 self.chrono.tick(self.FPS)
             else:
-                queue.timer= queue.time_generation
+                stockage.timer= stockage.time_generation
                 # C'est une boucle for-else, ce else se déclenche uniquement si aucun "break" n'a été déclenché
                 # Après 15 secondes, on démarre un nouveau tour, naissances, morts, apparition de nourriture
-                if self.simulation.Nouveau_tour(queue.facteur_food) == False:
+                if self.simulation.Nouveau_tour(stockage.facteur_food) == False:
                     stats.statut = "Terminé"
                     # export.graph()
                     notification.notify( # Notification windows
@@ -126,21 +124,21 @@ class App:
                 break
             # Si l'utilisateur appuie sur le bouton plus individus
             if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_plus_nb_individus") == True:
-                queue.nb_individus += 1
+                stockage.nb_individus += 1
             # Si l'utilisateur appuie sur le bouton moins individus
             if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_moins_nb_individus") == True:
-                if queue.nb_individus>0:
-                    queue.nb_individus -= 1
+                if stockage.nb_individus>0:
+                    stockage.nb_individus -= 1
             if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_moins_food"):
-                if queue.facteur_food >= 5:
-                    queue.facteur_food -= 5
+                if stockage.facteur_food >= 5:
+                    stockage.facteur_food -= 5
             if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_plus_food"):
-                queue.facteur_food += 5
+                stockage.facteur_food += 5
             if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_moins_time"):
-                if queue.time_generation>0:
-                    queue.time_generation -=1   
+                if stockage.time_generation>0:
+                    stockage.time_generation -=1   
             if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_plus_time"):
-                queue.time_generation +=1
+                stockage.time_generation +=1
             if event.type == pygame.MOUSEBUTTONDOWN and UI.check_souris("bouton_clear"):
                 supp = "y"
             # Si l'utilisateur appuie sur la touche p, met la simualtion en pause
