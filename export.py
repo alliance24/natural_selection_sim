@@ -2,7 +2,6 @@ import openpyxl
 from openpyxl.chart import BarChart, Reference
 from openpyxl.utils import get_column_letter
 import stats
-# os.chdir("natural_selection_sim-main/")
 
 # Vide le fichier excel
 def clear(): 
